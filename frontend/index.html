@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PredictX Maintenance | Industrial Intelligence</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a href="index.html" class="logo-link">
+    <div class="logo">
+        <span class="logo-icon">⚙</span>
+        <div>
+            <h2>PredictX</h2>
+            <span>MAINTENANCE SYSTEM</span>
+        </div>
+    </div>
+</a>
+
+        <p class="menu-label">WORKSPACE</p>
+
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item active">
+                <span>▦</span> Dashboard
+            </a>
+            <a href="machines.html" class="nav-item">
+                <span>⚙</span> Machines
+            </a>
+            <a href="predictions.html" class="nav-item">
+                <span>⌁</span> Predictions
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="system-status">
+                <span class="status-dot"></span>
+                <div>
+                    <strong>System Ready</strong>
+                    <small>Monitoring interface</small>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+
+        <!-- Top bar -->
+        <header class="topbar">
+            <div>
+                <p class="breadcrumb">WORKSPACE / OVERVIEW</p>
+                <h2>Dashboard</h2>
+            </div>
+            <div class="topbar-right">
+                <span class="live-indicator">
+                    <span class="status-dot"></span>
+                    System Overview
+                </span>
+            </div>
+        </header>
+
+        <!-- Dashboard -->
+        <section class="dashboard-section" id="dashboard">
+
+            <div class="welcome">
+                <div>
+                    <p class="eyebrow">INDUSTRIAL INTELLIGENCE</p>
+                    <h1>Predict before it fails.</h1>
+                    <p>
+                        Monitor machine conditions, analyze sensor readings
+                        and identify potential equipment failures.
+                    </p>
+                </div>
+                <div class="welcome-icon">⚙</div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">PERFORMANCE OVERVIEW</p>
+                    <h2>System Overview</h2>
+                </div>
+                <span class="data-note">Sample dashboard figures</span>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Total Machines</span>
+                        <span class="stat-icon">⚙</span>
+                    </div>
+                    <h3 class="number" id="totalMachines">6</h3>
+                    <p>Machines monitored</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Healthy Machines</span>
+                        <span class="stat-icon healthy-icon">✓</span>
+                    </div>
+                    <h3 class="number healthy" id="healthyMachines">0</h3>
+                    <p>Operating normally</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Machines at Risk</span>
+                        <span class="stat-icon warning-icon">!</span>
+                    </div>
+                    <h3 class="number warning" id="machinesAtRisk">0</h3>
+                    <p>Require attention</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Failure Alerts</span>
+                        <span class="stat-icon danger-icon">⚠</span>
+                    </div>
+                    <h3 class="number danger" id="failureAlerts">0</h3>
+                    <p>Potential failures detected</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Machines -->
+        <section class="content-section" id="machines">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">EQUIPMENT MANAGEMENT</p>
+                    <h2>Machine Monitoring</h2>
+                    <p class="section-description">
+                        Overview of machine health and operating conditions.
+                    </p>
+                </div>
+            </div>
+
+            
+<div class="machine-panel">
+
+    <div class="machine-section-heading">
+        <div>
+            <h2>Machine Inventory</h2>
+            <p>Overview of registered machines and their current health.</p>
+        </div>
+
+        <span class="machine-total" id="dashboardMachineCount">
+            Loading machines...
+        </span>
+    </div>
+
+    <div class="machine-table-wrapper">
+
+        <table class="machine-table">
+            <thead>
+                <tr>
+                    <th>Machine</th>
+                    <th>Type</th>
+                    <th>Air Temp.</th>
+                    <th>Process Temp.</th>
+                    <th>Speed</th>
+                    <th>Health Status</th>
+                </tr>
+            </thead>
+
+            <tbody id="dashboardMachineTableBody">
+                <tr>
+                    <td colspan="6">Loading machines...</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+
+        </section>
+
+        <!-- Predictions -->
+        <section class="content-section" id="prediction">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">AI-POWERED ANALYSIS</p>
+                    <h2>Machine Health Prediction</h2>
+                    <p class="section-description">
+                        Enter sensor readings to evaluate the possibility
+                        of machine failure.
+                    </p>
+                </div>
+            </div>
+
+            <div class="prediction-layout">
+
+                <div class="prediction-info">
+                    <span class="ai-label">AI PREDICTION ENGINE</span>
+                    <h3>Assess your machine's condition.</h3>
+                    <p>
+                        Our Random Forest machine learning model analyzes
+                        machine sensor readings to identify potential
+                        failure conditions.
+                    </p>
+
+                    <div class="info-point">
+                        <span>01</span>
+                        <div>
+                            <strong>Select a machine and enter readings</strong>
+                            <p>Choose the equipment you want to analyze.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-point">
+                        <span>02</span>
+                        <div>
+                            <strong>Analyze machine condition</strong>
+                            <p>The prediction model evaluates the readings.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-point">
+                        <span>03</span>
+                        <div>
+                            <strong>View prediction results</strong>
+                            <p>Review the predicted machine condition.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prediction-box">
+
+                    <div class="form-heading">
+                        <div>
+                            <h3>Sensor Input Parameters</h3>
+                            <p>Enter all required machine readings.</p>
+                        </div>
+                        <span class="required-label">* Required</span>
+                    </div>
+
+                    <form id="predictionForm">
+
+                        <!-- NEW: Machine selection -->
+                        <div class="form-group">
+                            <label for="machineId">Select Machine *</label>
+                            <select id="machineId" name="machineId" required>
+                                <option value="">Loading machines...</option>
+                            </select>
+                        </div>
+
+                        <!-- Machine type is set automatically -->
+                        <div class="form-group">
+                            <label for="machineType">Machine Type</label>
+                            <select id="machineType" name="machineType" disabled required>
+                                <option value="">Select a machine first</option>
+                                <option value="L">L - Low</option>
+                                <option value="M">M - Medium</option>
+                                <option value="H">H - High</option>
+                            </select>
+                        </div>
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+                                <label for="airTemperature">
+                                    Air Temperature (K) *
+                                </label>
+                                <input type="number"
+                                    id="airTemperature"
+                                    name="airTemperature"
+                                    step="any"
+                                    placeholder="e.g. 298.1"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="processTemperature">
+                                    Process Temperature (K) *
+                                </label>
+                                <input type="number"
+                                    id="processTemperature"
+                                    name="processTemperature"
+                                    step="any"
+                                    placeholder="e.g. 308.6"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="rotationalSpeed">
+                                    Rotational Speed (RPM) *
+                                </label>
+                                <input type="number"
+                                    id="rotationalSpeed"
+                                    name="rotationalSpeed"
+                                    step="any"
+                                    placeholder="e.g. 1500"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="torque">Torque (Nm) *</label>
+                                <input type="number"
+                                    id="torque"
+                                    name="torque"
+                                    step="any"
+                                    placeholder="e.g. 40"
+                                    required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="toolWear">Tool Wear (minutes) *</label>
+                                <input type="number"
+                                    id="toolWear"
+                                    name="toolWear"
+                                    step="any"
+                                    placeholder="e.g. 120"
+                                    required>
+                            </div>
+
+                        </div>
+
+                        <button type="submit" id="predictButton">
+                            Analyze Machine Health
+                            <span>→</span>
+                        </button>
+
+                    </form>
+
+                    <div id="predictionResult" aria-live="polite"></div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Predictive Maintenance System</p>
+            <span>AI-powered Industrial Monitoring</span>
+        </footer>
+
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

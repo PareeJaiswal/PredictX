@@ -1,0 +1,1649 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PredictX | Machine Analytics</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+/* ===== PREDICTION PAGE - LIGHT LAVENDER THEME ===== */
+
+:root {
+    --dash-bg: #F5F3FF;
+    --dash-panel: #FFFFFF;
+    --dash-panel2: #F0EDFF;
+    --dash-border: #E3DDFB;
+    --dash-purple: #7967ED;
+    --dash-violet: #5141BD;
+    --dash-text: #252343;
+    --dash-muted: #85829F;
+    --dash-green: #159B70;
+    --dash-red: #DC526B;
+    --dash-orange: #D98A24;
+}
+
+body {
+    background: var(--dash-bg) !important;
+    color: var(--dash-text) !important;
+}
+
+.main-content {
+    background: var(--dash-bg) !important;
+    padding-bottom: 35px;
+    color: var(--dash-text) !important;
+}
+
+.topbar {
+    border-color: var(--dash-border) !important;
+}
+
+.topbar h2,
+.section-heading h2 {
+    color: var(--dash-text) !important;
+}
+
+.breadcrumb {
+    color: #6554D9 !important;
+}
+
+.topbar-date {
+    background: var(--dash-panel);
+    color: #5141BD;
+    padding: 9px 15px;
+    border: 1px solid var(--dash-border);
+    border-radius: 30px;
+    font-size: 12px;
+}
+
+/* Hero */
+
+.analytics-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 34px;
+    border-radius: 20px;
+    margin-bottom: 26px;
+    background:
+      radial-gradient(circle at 85% 20%, rgba(255,255,255,.25), transparent 30%),
+      linear-gradient(115deg,#5141BD,#7967ED 65%,#9A8AF4);
+    border: 1px solid rgba(177,160,255,.25);
+    box-shadow: 0 12px 30px rgba(81,65,189,.13);
+}
+
+.analytics-hero::after {
+    content: "✧";
+    position: absolute;
+    right: 7%;
+    top: -55px;
+    font-size: 220px;
+    color: rgba(255,255,255,.12);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.analytics-hero .eyebrow {
+    color: #E9E3FF !important;
+}
+
+.analytics-hero h1 {
+    color: white !important;
+    font-size: clamp(27px,3vw,38px);
+    margin: 8px 0;
+}
+
+.analytics-hero p:not(.eyebrow) {
+    color: #F1EDFF !important;
+    font-size: 13px;
+    max-width: 650px;
+}
+
+.hero-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 19px;
+}
+
+.hero-chip {
+    display: inline-flex;
+    gap: 7px;
+    align-items: center;
+    background: rgba(255,255,255,.17);
+    color: #FFFFFF;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 30px;
+    padding: 7px 12px;
+    font-size: 11px;
+}
+
+.live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #42E0A5;
+    box-shadow: 0 0 9px #42E0A5;
+}
+
+/* Toolbar */
+
+.dashboard-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.dashboard-toolbar select {
+    background: #FFFFFF !important;
+    color: var(--dash-text) !important;
+    border: 1px solid var(--dash-border) !important;
+    padding: 10px 14px;
+    border-radius: 9px;
+}
+
+.dashboard-toolbar select option {
+    background: #FFFFFF;
+    color: var(--dash-text);
+}
+
+.refresh-btn {
+    padding: 10px 16px;
+    border: 1px solid var(--dash-border) !important;
+    background: #FFFFFF !important;
+    color: #5141BD !important;
+    border-radius: 9px;
+    cursor: pointer;
+}
+
+.refresh-btn:hover {
+    background: #F0EDFF !important;
+}
+
+/* Sections */
+
+.dashboard-section {
+    margin-top: 28px;
+}
+
+.dashboard-section .section-heading {
+    margin-bottom: 16px;
+}
+
+.dashboard-section .section-heading h2 {
+    font-size: 19px;
+}
+
+.dashboard-section .section-description {
+    color: var(--dash-muted);
+    font-size: 11px;
+}
+
+/* KPI cards */
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4,minmax(0,1fr));
+    gap: 15px;
+}
+
+.kpi-card {
+    min-width: 0;
+    padding: 20px;
+    border-radius: 15px;
+    background: #FFFFFF;
+    border: 1px solid var(--dash-border);
+    box-shadow: 0 4px 16px rgba(75,60,150,.06);
+    transition: .2s;
+}
+
+.kpi-card:hover {
+    transform: translateY(-3px);
+    border-color: #B9ADF7;
+    box-shadow: 0 8px 22px rgba(75,60,150,.10);
+}
+
+.kpi-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    color: var(--dash-muted);
+    font-size: 11px;
+}
+
+.kpi-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    background: #F0EDFF;
+    color: #6554D9;
+    font-size: 18px;
+}
+
+.kpi-number {
+    font-size: 32px;
+    font-weight: 750;
+    color: var(--dash-text);
+    margin: 13px 0 2px;
+    overflow-wrap: anywhere;
+}
+
+.kpi-sub {
+    font-size: 10px;
+    color: var(--dash-muted);
+}
+
+.green-text { color: var(--dash-green) !important; }
+.red-text { color: var(--dash-red) !important; }
+.orange-text { color: var(--dash-orange) !important; }
+
+/* Analytics panels */
+
+.panel-grid {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 17px;
+}
+
+.analytics-panel {
+    min-width: 0;
+    background: #FFFFFF;
+    border: 1px solid var(--dash-border);
+    border-radius: 16px;
+    padding: 21px;
+    box-shadow: 0 4px 16px rgba(75,60,150,.06);
+}
+
+.panel-title {
+    color: var(--dash-text);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.panel-subtitle {
+    color: var(--dash-muted);
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+.chart-wrap {
+    position: relative;
+    height: 250px;
+    margin-top: 18px;
+}
+
+.chart-wrap canvas {
+    max-width: 100%;
+}
+
+.chart-legend-note {
+    color: var(--dash-muted);
+    font-size: 10px;
+    margin-top: 12px;
+    text-align: center;
+}
+
+/* Latest prediction */
+
+.latest-panel {
+    display: grid;
+    grid-template-columns: minmax(0,1.1fr) minmax(0,1fr);
+    gap: 20px;
+}
+
+.latest-result {
+    background: #F5F3FF;
+    border: 1px solid var(--dash-border);
+    border-radius: 13px;
+    padding: 20px;
+}
+
+.latest-result h3 {
+    color: var(--dash-text);
+    font-size: 17px;
+    margin: 10px 0;
+}
+
+.latest-result p {
+    color: var(--dash-muted);
+    font-size: 11px;
+    margin-top: 6px;
+}
+
+.result-status {
+    display: inline-flex;
+    padding: 7px 12px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.result-status.healthy {
+    color: #087B56;
+    background: #DDF7EC;
+}
+
+.result-status.failure {
+    color: #B92E4B;
+    background: #FFE4E9;
+}
+
+.result-status.unknown {
+    color: #A66A13;
+    background: #FFF1D8;
+}
+
+
+/* Failure alert indicator */
+.latest-alert-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0;
+    padding: 12px;
+    background: #FFF0F2;
+    border: 1px solid #F5CBD3;
+    border-radius: 12px;
+}
+
+.latest-alert-indicator {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #DC526B;
+    color: white;
+    font-size: 23px;
+    font-weight: 800;
+    box-shadow: 0 0 0 5px rgba(220, 82, 107, 0.08);
+}
+
+.latest-alert-message {
+    color: #B92E4B !important;
+    font-size: 12px !important;
+    font-weight: 700;
+    margin: 0 !important;
+}
+
+
+/* Sensor cards */
+
+.sensor-grid {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 10px;
+}
+
+.sensor-metric {
+    background: #F8F7FF;
+    border: 1px solid var(--dash-border);
+    border-radius: 11px;
+    padding: 13px;
+    min-width: 0;
+}
+
+.sensor-metric small {
+    color: var(--dash-muted);
+    font-size: 10px;
+    display: block;
+}
+
+.sensor-metric strong {
+    color: var(--dash-text) !important;
+    font-size: 19px;
+    display: block;
+    margin-top: 5px;
+    overflow-wrap: anywhere;
+}
+
+.sensor-metric span {
+    color: #6554D9;
+    font-size: 9px;
+}
+
+/* Maintenance insights */
+
+.insight-grid {
+    display: grid;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 13px;
+}
+
+.insight-card {
+    background: #FFFFFF;
+    border: 1px solid var(--dash-border);
+    padding: 18px;
+    border-radius: 13px;
+    box-shadow: 0 4px 14px rgba(75,60,150,.04);
+}
+
+.insight-card .insight-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.insight-card h3 {
+    color: var(--dash-text) !important;
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+.insight-card p {
+    color: var(--dash-muted);
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+/* History table */
+
+.history-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--dash-border);
+    border-radius: 12px;
+    margin-top: 12px;
+    background: #FFFFFF;
+}
+
+.history-table {
+    min-width: 760px;
+    width: 100%;
+    border-collapse: collapse;
+    background: #FFFFFF;
+}
+
+.history-table th {
+    background: #F0EDFF !important;
+    color: #5141BD !important;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    padding: 14px;
+    white-space: nowrap;
+}
+
+.history-table td {
+    color: #514E70 !important;
+    font-size: 11px;
+    padding: 13px 14px;
+    border-bottom: 1px solid var(--dash-border);
+    background: #FFFFFF;
+}
+
+.history-table tr:hover td {
+    background: #F8F6FF !important;
+}
+
+.table-status {
+    padding: 5px 9px;
+    border-radius: 30px;
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.table-status.healthy {
+    color: #087B56;
+    background: #DDF7EC;
+}
+
+.table-status.failure {
+    color: #B92E4B;
+    background: #FFE4E9;
+}
+
+/* Empty, loading and error states */
+
+.empty-state,
+.loading-state,
+.error-state {
+    text-align: center;
+    padding: 35px 20px;
+    color: var(--dash-muted);
+    background: #FFFFFF;
+    border: 1px dashed var(--dash-border);
+    border-radius: 13px;
+    font-size: 12px;
+}
+
+.empty-state strong {
+    display: block;
+    color: var(--dash-text) !important;
+    font-size: 15px;
+    margin-bottom: 7px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.data-disclaimer {
+    color: var(--dash-muted);
+    font-size: 10px;
+    line-height: 1.7;
+    margin-top: 15px;
+}
+
+.footer {
+    border-color: var(--dash-border) !important;
+    color: var(--dash-muted) !important;
+}
+
+/* Sidebar remains consistent with the other pages */
+
+.sidebar {
+    background: linear-gradient(180deg,#19183D,#342A80) !important;
+}
+
+
+/* Responsive */
+
+@media(max-width:1100px) {
+    .kpi-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .insight-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+
+@media(max-width:750px) {
+    .panel-grid, .latest-panel { grid-template-columns: 1fr; }
+    .analytics-hero { padding: 25px 21px; }
+    .analytics-hero::after { right: -20px; font-size: 150px; }
+    .main-content { padding-left: 18px !important; padding-right: 18px !important; }
+}
+
+@media(max-width:480px) {
+    .kpi-grid { grid-template-columns: 1fr 1fr; gap: 9px; }
+    .kpi-card { padding: 14px; }
+    .kpi-number { font-size: 25px; }
+    .kpi-top { font-size: 9px; }
+    .kpi-icon { width: 29px; height: 29px; font-size: 14px; }
+    .insight-grid { grid-template-columns: 1fr; }
+    .sensor-grid { grid-template-columns: 1fr 1fr; }
+    .analytics-panel { padding: 15px; }
+    .chart-wrap { height: 220px; }
+}
+</style>
+</head>
+
+<body>
+<div class="app-layout">
+
+<aside class="sidebar">
+    <a href="index.html" class="logo-link">
+    <div class="logo">
+        <span class="logo-icon">⚙</span>
+        <div>
+            <h2>PredictX</h2>
+            <span>MAINTENANCE SYSTEM</span>
+        </div>
+    </div>
+</a>
+
+    <p class="menu-label">MAIN MENU</p>
+
+    <nav class="sidebar-nav">
+        <a href="index.html" class="nav-item"><span>▦</span> Dashboard</a>
+        <a href="machines.html" class="nav-item"><span>⚙</span> Machines</a>
+        <a href="predictions.html" class="nav-item active"><span>⌁</span> Predictions</a>
+    </nav>
+
+    <div class="sidebar-bottom">
+        <div class="system-status">
+            <span class="status-dot"></span>
+            <div>
+                <strong style="color:white">System Ready</strong>
+                <small>Analytics monitoring</small>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<main class="main-content">
+
+<header class="topbar">
+    <div>
+        <p class="breadcrumb">MAIN MENU / PREDICTIONS / ANALYTICS</p>
+        <h2>Machine Analytics</h2>
+    </div>
+    <div class="topbar-right">
+        <span class="topbar-date" id="lastUpdated">Loading data...</span>
+    </div>
+</header>
+
+<section class="analytics-hero">
+    <div class="hero-content">
+        <p class="eyebrow">PREDICTIVE INTELLIGENCE CENTER</p>
+        <h1>Machine Health Analytics</h1>
+        <p>
+            A complete overview of machine health, AI-generated failure
+            predictions, sensor readings and maintenance insights.
+        </p>
+        <div class="hero-meta">
+            <span class="hero-chip"><span class="live-dot"></span> Database connected</span>
+            <span class="hero-chip">✦ Random Forest prediction system</span>
+            <span class="hero-chip" id="heroRecordCount">0 prediction records</span>
+        </div>
+    </div>
+</section>
+
+<div class="dashboard-toolbar">
+    <div>
+        <p class="eyebrow">LIVE ANALYTICS</p>
+        <p style="color:#85829F;font-size:11px">Data retrieved from your PredictX database</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <select id="machineFilter" aria-label="Filter by machine">
+            <option value="all">All machines</option>
+        </select>
+        <button class="refresh-btn" id="refreshButton">↻ Refresh data</button>
+    </div>
+</div>
+
+<div id="loadingState" class="loading-state">Loading machine analytics...</div>
+<div id="errorState" class="error-state hidden"></div>
+
+<div id="dashboardContent" class="hidden">
+
+<section class="dashboard-section">
+    <div class="section-heading">
+        <div>
+            <h2>System Overview</h2>
+            <p class="section-description">Key performance indicators from recorded predictions</p>
+        </div>
+    </div>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-top">Total Predictions <span class="kpi-icon">⌁</span></div>
+            <div class="kpi-number" id="totalPredictions">0</div>
+            <p class="kpi-sub">Recorded prediction entries</p>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-top">Healthy Predictions <span class="kpi-icon">✓</span></div>
+            <div class="kpi-number green-text" id="healthyPredictions">0</div>
+            <p class="kpi-sub">Predicted no failure</p>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-top">Failure Predictions <span class="kpi-icon">⚠</span></div>
+            <div class="kpi-number red-text" id="failurePredictions">0</div>
+            <p class="kpi-sub">Predicted failure cases</p>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-top">Registered Machines <span class="kpi-icon">⚙</span></div>
+            <div class="kpi-number" id="registeredMachines">0</div>
+            <p class="kpi-sub">Machine profiles in the system</p>
+        </div>
+    </div>
+</section>
+
+<section class="dashboard-section">
+    <div class="section-heading">
+        <div>
+            <h2>Prediction Visualizations</h2>
+            <p class="section-description">Visual breakdown of machine predictions and recorded data</p>
+        </div>
+    </div>
+
+    <div class="panel-grid">
+        <div class="analytics-panel">
+            <div class="panel-title">Machine Health Distribution</div>
+            <p class="panel-subtitle">Healthy predictions compared with predicted failures</p>
+            <div class="chart-wrap"><canvas id="healthChart"></canvas></div>
+            <p class="chart-legend-note" id="healthChartNote">Based on recorded prediction results</p>
+        </div>
+
+        <div class="analytics-panel">
+            <div class="panel-title">Machine Type Distribution</div>
+            <p class="panel-subtitle">Distribution of prediction records by machine category</p>
+            <div class="chart-wrap"><canvas id="typeChart"></canvas></div>
+            <p class="chart-legend-note">L = Low | M = Medium | H = High</p>
+        </div>
+
+        <div class="analytics-panel">
+            <div class="panel-title">Latest Sensor Readings</div>
+            <p class="panel-subtitle">Sensor values from the latest matching prediction</p>
+            <div class="chart-wrap"><canvas id="sensorChart"></canvas></div>
+            <p class="chart-legend-note">Values are displayed in their original units</p>
+        </div>
+
+        <div class="analytics-panel">
+            <div class="panel-title">Prediction History Trend</div>
+            <p class="panel-subtitle">Number of recorded healthy and failure predictions over time</p>
+            <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
+            <p class="chart-legend-note">Grouped by prediction date</p>
+        </div>
+    </div>
+</section>
+
+<section class="dashboard-section">
+    <div class="section-heading">
+        <div>
+            <h2>Latest Machine Analysis</h2>
+            <p class="section-description">Most recent prediction and its recorded sensor parameters</p>
+        </div>
+    </div>
+
+    <div class="analytics-panel latest-panel">
+        <div class="latest-result" id="latestResult">
+            <p class="eyebrow">LATEST AI RESULT</p>
+            <span class="result-status unknown">No prediction available</span>
+            <h3>Waiting for prediction data</h3>
+            <p>Submit sensor readings through the main dashboard to see the analysis here.</p>
+        </div>
+
+        <div>
+            <div class="panel-title" style="margin-bottom:13px">Sensor Parameters</div>
+            <div class="sensor-grid" id="sensorMetrics">
+                <div class="sensor-metric"><small>Air Temperature</small><strong>—</strong><span>Kelvin</span></div>
+                <div class="sensor-metric"><small>Process Temperature</small><strong>—</strong><span>Kelvin</span></div>
+                <div class="sensor-metric"><small>Rotational Speed</small><strong>—</strong><span>RPM</span></div>
+                <div class="sensor-metric"><small>Torque</small><strong>—</strong><span>Nm</span></div>
+                <div class="sensor-metric"><small>Tool Wear</small><strong>—</strong><span>Minutes</span></div>
+                <div class="sensor-metric"><small>Machine Type</small><strong>—</strong><span>Category</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="dashboard-section">
+    <div class="section-heading">
+        <div>
+            <h2>Maintenance Insights</h2>
+            <p class="section-description">Guidance based on the latest recorded model result</p>
+        </div>
+    </div>
+
+    <div class="insight-grid" id="insightGrid">
+        <div class="insight-card">
+            <div class="insight-icon">📊</div>
+            <h3>Prediction Summary</h3>
+            <p>Waiting for prediction records.</p>
+        </div>
+        <div class="insight-card">
+            <div class="insight-icon">🔍</div>
+            <h3>Sensor Review</h3>
+            <p>Sensor readings will appear after a prediction is saved.</p>
+        </div>
+        <div class="insight-card">
+            <div class="insight-icon">🛠</div>
+            <h3>Maintenance Guidance</h3>
+            <p>Maintenance guidance will be based on the predicted result.</p>
+        </div>
+    </div>
+    <p class="data-disclaimer">
+        These insights summarize recorded model outputs and sensor values.
+        They are not a substitute for physical inspection or manufacturer
+        operating limits. The current backend does not return failure
+        probability or individual sensor feature-importance scores.
+    </p>
+</section>
+
+
+<!-- ALERT OVERVIEW -->
+<section class="dashboard-section" id="alertsSection">
+
+    <div class="section-heading">
+        <div>
+            <h2>Failure Alerts</h2>
+            <p class="section-description">
+                Monitor machine failures detected by the prediction system
+            </p>
+        </div>
+    </div>
+
+    <!-- Alert Summary -->
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-top">Total Alerts</div>
+            <div class="kpi-number" id="totalAlerts">0</div>
+            <p class="kpi-sub">All recorded alerts</p>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-top">Unresolved Alerts</div>
+            <div class="kpi-number red-text" id="unresolvedAlerts">0</div>
+            <p class="kpi-sub">Require attention</p>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-top">Resolved Alerts</div>
+            <div class="kpi-number green-text" id="resolvedAlerts">0</div>
+            <p class="kpi-sub">Successfully resolved</p>
+        </div>
+    </div>
+
+    <!-- Recent Alerts Table -->
+    <div class="analytics-panel" style="margin-top: 18px;">
+        <div class="panel-title">Recent Alerts</div>
+        <p class="panel-subtitle">
+            Failure alerts recorded by the system
+        </p>
+
+        <div class="history-table-wrap">
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Alert ID</th>
+                        <th>Machine ID</th>
+                        <th>Prediction ID</th>
+                        <th>Message</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="alertsBody">
+                    <tr>
+                        <td colspan="7">Loading alerts...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="alertsEmpty" class="empty-state hidden">
+            <strong>No alerts found</strong>
+            No machine failure alerts have been recorded yet.
+        </div>
+    </div>
+
+</section>
+
+<section class="dashboard-section">
+    <div class="section-heading">
+        <div>
+            <h2>Prediction History</h2>
+            <p class="section-description">Previously saved machine health predictions</p>
+        </div>
+        <span class="hero-chip" id="historyCount">0 records</span>
+    </div>
+
+    <div class="history-table-wrap">
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>Prediction ID</th>
+                    <th>Machine ID</th>
+                    <th>Machine Type</th>
+                    <th>Air Temp.</th>
+                    <th>Process Temp.</th>
+                    <th>Speed</th>
+                    <th>Torque</th>
+                    <th>Tool Wear</th>
+                    <th>Result</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="historyBody"></tbody>
+        </table>
+    </div>
+    <div id="historyEmpty" class="empty-state hidden">
+        <strong>No prediction history yet</strong>
+        Submit sensor readings from the main dashboard to populate this table.
+    </div>
+</section>
+
+</div>
+
+<footer class="footer">
+    <p>© 2026 PredictX | Predictive Maintenance System</p>
+    <p>Machine Health Analytics</p>
+</footer>
+
+</main>
+</div>
+
+<script>
+/* =========================================
+   PREDICTX ANALYTICS - DATABASE CONNECTION
+========================================= */
+
+const API_BASE = "http://127.0.0.1:5000";
+
+let allPredictions = [];
+let allMachines = [];
+let allAlerts = [];
+let charts = {};
+
+const $ = id => document.getElementById(id);
+
+function numberValue(value) {
+    const n = Number(value);
+    return Number.isFinite(n) ? n : null;
+}
+
+function formatNumber(value, digits = 1) {
+    const n = numberValue(value);
+    return n === null ? "—" : n.toLocaleString(undefined, {
+        maximumFractionDigits: digits
+    });
+}
+
+function safeText(value, fallback = "—") {
+    return value === null || value === undefined || value === ""
+        ? fallback
+        : String(value);
+}
+
+function getMachineId(record) {
+    return record.machine_id || record.machineId || "Unassigned";
+}
+
+function getMachineType(record) {
+    return record.machine_type || record.type || "Unknown";
+}
+
+function isFailure(record) {
+    const value = record.predicted_failure;
+
+    if (value === 1 || value === true || value === "1") return true;
+    if (value === 0 || value === false || value === "0") return false;
+
+    const status = String(record.prediction_status || record.status || "").toLowerCase();
+
+    if (status.includes("fail") || status.includes("critical") || status.includes("risk")) {
+        return true;
+    }
+
+    if (status.includes("healthy") || status.includes("no failure") || status.includes("normal")) {
+        return false;
+    }
+
+    return null;
+}
+
+function getStatusLabel(record) {
+    const failure = isFailure(record);
+
+    if (failure === true) return "Failure Predicted";
+    if (failure === false) return "Healthy";
+    return safeText(record.prediction_status || record.status, "Unknown");
+}
+
+function getRecordDate(record) {
+    const raw = record.created_at || record.timestamp || record.date;
+    if (!raw) return null;
+
+    const dateString = typeof raw === "string" && raw.includes(" ")
+        ? raw.replace(" ", "T")
+        : raw;
+
+    const parsed = new Date(dateString);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function sortNewest(records) {
+    return [...records].sort((a, b) => {
+        const da = getRecordDate(a);
+        const db = getRecordDate(b);
+        if (da && db) return db - da;
+        return Number(b.id || 0) - Number(a.id || 0);
+    });
+}
+
+function getMachineName(machineId) {
+    const machine = allMachines.find(m =>
+        String(m.machine_id || m.id) === String(machineId)
+    );
+
+    return machine
+        ? (machine.machine_name || machine.name || machine.machine_type || machineId)
+        : machineId;
+}
+
+function showError(message) {
+    $("loadingState").classList.add("hidden");
+    $("dashboardContent").classList.add("hidden");
+    $("errorState").classList.remove("hidden");
+    $("errorState").textContent =
+        "Unable to load analytics: " + message +
+        ". Make sure your Flask backend is running at " + API_BASE + ".";
+}
+
+async function fetchJSON(endpoint) {
+    const response = await fetch(API_BASE + endpoint);
+
+    if (!response.ok) {
+        throw new Error(endpoint + " returned HTTP " + response.status);
+    }
+
+    return response.json();
+}
+
+async function loadDashboard() {
+    $("loadingState").classList.remove("hidden");
+    $("errorState").classList.add("hidden");
+    $("dashboardContent").classList.add("hidden");
+
+    try {
+        const [predictionData, machineData, alertData] = await Promise.all([
+    fetchJSON("/api/predictions"),
+    fetchJSON("/api/machines"),
+    fetchJSON("/api/alerts")
+]);
+
+        allPredictions = Array.isArray(predictionData)
+            ? predictionData
+            : (predictionData.predictions || []);
+
+        allMachines = Array.isArray(machineData)
+            ? machineData
+            : (machineData.machines || []);
+
+        allAlerts = Array.isArray(alertData)
+            ? alertData
+            : (alertData.alerts || []);
+
+        populateMachineFilter();
+
+        $("loadingState").classList.add("hidden");
+        $("dashboardContent").classList.remove("hidden");
+
+        renderDashboard();
+
+        $("lastUpdated").textContent =
+            "Updated " + new Date().toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+
+        $("heroRecordCount").textContent =
+            allPredictions.length + " prediction records";
+
+    } catch (error) {
+        console.error("Analytics loading error:", error);
+        showError(error.message || "Could not connect to the backend.");
+    }
+}
+
+function populateMachineFilter() {
+    const select = $("machineFilter");
+    const previous = select.value;
+
+    select.innerHTML = '<option value="all">All machines</option>';
+
+    allMachines.forEach(machine => {
+        const id = machine.machine_id || machine.id;
+        if (!id) return;
+
+        const option = document.createElement("option");
+        option.value = id;
+        option.textContent = (machine.machine_name || machine.name || id) + " (" + id + ")";
+        select.appendChild(option);
+    });
+
+    if ([...select.options].some(option => option.value === previous)) {
+        select.value = previous;
+    }
+}
+
+function getFilteredPredictions() {
+    const filter = $("machineFilter").value;
+
+    if (filter === "all") return [...allPredictions];
+
+    return allPredictions.filter(record =>
+        String(getMachineId(record)) === String(filter)
+    );
+}
+
+function renderDashboard() {
+    const records = sortNewest(getFilteredPredictions());
+    const knownResults = records.filter(record => isFailure(record) !== null);
+
+    const failures = knownResults.filter(record => isFailure(record) === true).length;
+    const healthy = knownResults.filter(record => isFailure(record) === false).length;
+
+    $("totalPredictions").textContent = records.length;
+    $("healthyPredictions").textContent = healthy;
+    $("failurePredictions").textContent = failures;
+    $("registeredMachines").textContent = allMachines.length;
+    $("historyCount").textContent = records.length + " records";
+
+    renderHealthChart(healthy, failures);
+    renderTypeChart(records);
+    renderSensorChart(records);
+    renderTrendChart(records);
+    renderLatest(records);
+    renderInsights(records, healthy, failures);
+    renderHistory(records);
+    renderAlerts();
+}
+
+
+function renderAlerts() {
+
+    const total = allAlerts.length;
+
+    const unresolved = allAlerts.filter(
+        alert => Number(alert.is_resolved) === 0
+    ).length;
+
+    const resolved = allAlerts.filter(
+        alert => Number(alert.is_resolved) === 1
+    ).length;
+
+    $("totalAlerts").textContent = total;
+    $("unresolvedAlerts").textContent = unresolved;
+    $("resolvedAlerts").textContent = resolved;
+
+    const body = $("alertsBody");
+    const empty = $("alertsEmpty");
+
+    if (total === 0) {
+        body.innerHTML = "";
+        empty.classList.remove("hidden");
+        return;
+    }
+
+    empty.classList.add("hidden");
+
+    body.innerHTML = allAlerts.map(alert => {
+
+        const isResolved = Number(alert.is_resolved) === 1;
+
+        const status = isResolved ? "Resolved" : "Unresolved";
+        const statusClass = isResolved ? "healthy" : "failure";
+
+        const date = alert.created_at
+            ? new Date(alert.created_at.replace(" ", "T")).toLocaleString()
+            : "Not available";
+
+        return `
+            <tr>
+                <td>#${safeText(alert.id)}</td>
+                <td>${safeText(alert.machine_id)}</td>
+                <td>#${safeText(alert.prediction_id)}</td>
+                <td>${safeText(alert.message)}</td>
+                <td>${date}</td>
+                <td>
+                    <span class="table-status ${statusClass}">
+                        ${status}
+                    </span>
+                </td>
+                <td>
+                    ${isResolved
+                        ? '<span class="table-status healthy">Completed</span>'
+                        : `<button class="refresh-btn resolve-alert-btn"
+                            data-alert-id="${Number(alert.id)}">
+                            Resolve
+                           </button>`
+                    }
+                </td>
+            </tr>
+        `;
+
+    }).join("");
+}
+
+
+async function resolveAlert(alertId, button) {
+
+    try {
+
+        button.disabled = true;
+        button.textContent = "Resolving...";
+
+        const response = await fetch(
+            `${API_BASE}/api/alerts/${alertId}/resolve`,
+            {
+                method: "PATCH"
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "Could not resolve alert.");
+        }
+
+        // Refresh alert data from the backend
+        const alertData = await fetchJSON("/api/alerts");
+
+        allAlerts = alertData.alerts || [];
+
+        renderAlerts();
+
+    } catch (error) {
+
+        alert(error.message);
+
+        button.disabled = false;
+        button.textContent = "Resolve";
+    }
+}
+
+
+// Handle clicks on Resolve buttons
+$("alertsBody").addEventListener("click", function(event) {
+
+    const button = event.target.closest(".resolve-alert-btn");
+
+    if (!button) return;
+
+    const alertId = button.dataset.alertId;
+
+    resolveAlert(alertId, button);
+});
+
+
+function destroyChart(name) {
+    if (charts[name]) {
+        charts[name].destroy();
+        delete charts[name];
+    }
+}
+
+function renderHealthChart(healthy, failures) {
+    destroyChart("health");
+
+    charts.health = new Chart($("healthChart"), {
+        type: "doughnut",
+        data: {
+            labels: ["Healthy", "Failure predicted"],
+            datasets: [{
+                data: [healthy, failures],
+                backgroundColor: ["#42B990", "#E56B82"],
+                borderColor: "#FFFFFF",
+                borderWidth: 4,
+                hoverOffset: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: "70%",
+            plugins: {
+                legend: {
+                    position: "bottom",
+                    labels: {
+                        color: "#625E80",
+                        padding: 18,
+                        usePointStyle: true,
+                        pointStyle: "circle"
+                    }
+                }
+            }
+        }
+    });
+
+    $("healthChartNote").textContent =
+        (healthy + failures) + " predictions with a recognized result";
+}
+
+function renderTypeChart(records) {
+    destroyChart("type");
+
+    const counts = { L: 0, M: 0, H: 0, Other: 0 };
+
+    records.forEach(record => {
+        const type = String(getMachineType(record)).toUpperCase();
+
+        if (type === "L" || type.includes("LOW")) counts.L++;
+        else if (type === "M" || type.includes("MEDIUM")) counts.M++;
+        else if (type === "H" || type.includes("HIGH")) counts.H++;
+        else counts.Other++;
+    });
+
+    charts.type = new Chart($("typeChart"), {
+        type: "pie",
+        data: {
+            labels: ["Low (L)", "Medium (M)", "High (H)", "Other"],
+            datasets: [{
+                data: [counts.L, counts.M, counts.H, counts.Other],
+                backgroundColor: ["#7967ED", "#42B990", "#EBAE55", "#A2A0B8"],
+                borderColor: "#FFFFFF",
+                borderWidth: 4,
+                hoverOffset: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: "bottom",
+                    labels: {
+                        color: "#625E80",
+                        padding: 13,
+                        usePointStyle: true
+                    }
+                }
+            }
+        }
+    });
+}
+
+function renderSensorChart(records) {
+    destroyChart("sensor");
+
+    const latest = records[0];
+
+    const labels = [
+        "Air Temp.",
+        "Process Temp.",
+        "Speed",
+        "Torque",
+        "Tool Wear"
+    ];
+
+    const values = latest ? [
+        numberValue(latest.air_temperature),
+        numberValue(latest.process_temperature),
+        numberValue(latest.rotational_speed),
+        numberValue(latest.torque),
+        numberValue(latest.tool_wear)
+    ] : [];
+
+    const valid = values.length && values.every(v => v !== null);
+
+    charts.sensor = new Chart($("sensorChart"), {
+        type: "bar",
+        data: {
+            labels,
+            datasets: [{
+                label: "Recorded sensor value",
+                data: valid ? values : [0, 0, 0, 0, 0],
+                backgroundColor: [
+                    "#7967ED", "#9A89F3", "#42B990", "#EBAE55", "#E56B82"
+                ],
+                borderRadius: 7,
+                maxBarThickness: 38
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: { enabled: !!valid }
+            },
+            scales: {
+                x: {
+                    ticks: { color: "#777390", font: { size: 9 } },
+                    grid: { display: false }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: { color: "#777390", font: { size: 9 } },
+                    grid: { color: "#EEEAFB" }
+                }
+            }
+        }
+    });
+}
+
+function renderTrendChart(records) {
+    destroyChart("trend");
+
+    const daily = {};
+
+    records.forEach(record => {
+        const date = getRecordDate(record);
+        if (!date) return;
+
+        const key = date.toLocaleDateString();
+
+        if (!daily[key]) {
+            daily[key] = { healthy: 0, failure: 0 };
+        }
+
+        const result = isFailure(record);
+
+        if (result === true) daily[key].failure++;
+        if (result === false) daily[key].healthy++;
+    });
+
+    const keys = Object.keys(daily).sort((a, b) =>
+        new Date(a) - new Date(b)
+    ).slice(-10);
+
+    charts.trend = new Chart($("trendChart"), {
+        type: "line",
+        data: {
+            labels: keys.length ? keys : ["No dated records"],
+            datasets: [
+                {
+                    label: "Healthy",
+                    data: keys.map(key => daily[key].healthy),
+                    borderColor: "#24A77B",
+                    backgroundColor: "rgba(36,167,123,.12)",
+                    fill: true,
+                    tension: .35,
+                    pointRadius: 3
+                },
+                {
+                    label: "Failure predicted",
+                    data: keys.map(key => daily[key].failure),
+                    borderColor: "#DF6279",
+                    backgroundColor: "rgba(223,98,121,.08)",
+                    fill: true,
+                    tension: .35,
+                    pointRadius: 3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: "#625E80",
+                        usePointStyle: true
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: "#777390", maxRotation: 35 },
+                    grid: { color: "#EEEAFB" }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: { color: "#777390", precision: 0 },
+                    grid: { color: "#EEEAFB" }
+                }
+            }
+        }
+    });
+}
+
+function renderLatest(records) {
+    const latest = records[0];
+    const resultBox = $("latestResult");
+    const metricsBox = $("sensorMetrics");
+
+    if (!latest) {
+        resultBox.innerHTML = `
+            <p class="eyebrow">LATEST AI RESULT</p>
+            <span class="result-status unknown">No prediction available</span>
+            <h3>Waiting for prediction data</h3>
+            <p>Submit sensor readings through the main dashboard to see the analysis here.</p>
+        `;
+
+        metricsBox.innerHTML = `
+            <div class="sensor-metric"><small>Air Temperature</small><strong>—</strong><span>Kelvin</span></div>
+            <div class="sensor-metric"><small>Process Temperature</small><strong>—</strong><span>Kelvin</span></div>
+            <div class="sensor-metric"><small>Rotational Speed</small><strong>—</strong><span>RPM</span></div>
+            <div class="sensor-metric"><small>Torque</small><strong>—</strong><span>Nm</span></div>
+            <div class="sensor-metric"><small>Tool Wear</small><strong>—</strong><span>Minutes</span></div>
+            <div class="sensor-metric"><small>Machine Type</small><strong>—</strong><span>Category</span></div>
+        `;
+        return;
+    }
+
+    const failure = isFailure(latest);
+    const label = getStatusLabel(latest);
+    const statusClass = failure === true ? "failure" :
+        failure === false ? "healthy" : "unknown";
+
+    const machineId = getMachineId(latest);
+    const date = getRecordDate(latest);
+
+    resultBox.innerHTML = `
+    <p class="eyebrow">LATEST AI RESULT</p>
+<span class="result-status ${statusClass}">${label}</span>
+
+${failure === true ? `
+    <div class="latest-alert-row">
+        <div class="latest-alert-indicator">
+            <span>!</span>
+        </div>
+        <p class="latest-alert-message">
+            Alert: Machine requires immediate attention
+        </p>
+    </div>
+` : ""}
+
+<h3>${failure === true ? "Failure risk identified" :
+      failure === false ? "No failure predicted" :
+      "Prediction result recorded"}</h3>
+        <p><strong>Machine:</strong> ${machineId}</p>
+        <p><strong>Machine name:</strong> ${getMachineName(machineId)}</p>
+        <p><strong>Machine type:</strong> ${safeText(getMachineType(latest))}</p>
+        <p><strong>Prediction ID:</strong> ${safeText(latest.id)}</p>
+        <p><strong>Date:</strong> ${date ? date.toLocaleString() : "Not available"}</p>
+        <p><strong>Model status:</strong> ${safeText(latest.prediction_status || latest.status)}</p>
+    `;
+
+    metricsBox.innerHTML = `
+        <div class="sensor-metric">
+            <small>Air Temperature</small>
+            <strong>${formatNumber(latest.air_temperature)}</strong>
+            <span>Kelvin</span>
+        </div>
+        <div class="sensor-metric">
+            <small>Process Temperature</small>
+            <strong>${formatNumber(latest.process_temperature)}</strong>
+            <span>Kelvin</span>
+        </div>
+        <div class="sensor-metric">
+            <small>Rotational Speed</small>
+            <strong>${formatNumber(latest.rotational_speed,0)}</strong>
+            <span>RPM</span>
+        </div>
+        <div class="sensor-metric">
+            <small>Torque</small>
+            <strong>${formatNumber(latest.torque)}</strong>
+            <span>Nm</span>
+        </div>
+        <div class="sensor-metric">
+            <small>Tool Wear</small>
+            <strong>${formatNumber(latest.tool_wear,0)}</strong>
+            <span>Minutes</span>
+        </div>
+        <div class="sensor-metric">
+            <small>Machine Type</small>
+            <strong>${safeText(getMachineType(latest))}</strong>
+            <span>Category</span>
+        </div>
+    `;
+}
+
+function renderInsights(records, healthy, failures) {
+    const grid = $("insightGrid");
+    const latest = records[0];
+
+    if (!latest) {
+        grid.innerHTML = `
+            <div class="insight-card"><div class="insight-icon">📊</div><h3>Prediction Summary</h3><p>No prediction records are available yet.</p></div>
+            <div class="insight-card"><div class="insight-icon">🔍</div><h3>Sensor Review</h3><p>Sensor analytics will be available after the first prediction is saved.</p></div>
+            <div class="insight-card"><div class="insight-icon">🛠</div><h3>Maintenance Guidance</h3><p>Submit a prediction to receive result-based maintenance guidance.</p></div>
+        `;
+        return;
+    }
+
+    const failure = isFailure(latest);
+
+    let summary, review, guidance;
+
+    if (failure === true) {
+        summary = "The latest model result predicts a machine failure. Review the machine's operating condition and arrange a maintenance inspection.";
+        review = "Review all five recorded sensor readings against the machine manufacturer's operating limits. The model result alone does not identify the exact cause.";
+        guidance = "Prioritize physical inspection, review recent operating conditions and follow the equipment maintenance procedure before returning the machine to service.";
+    } else if (failure === false) {
+        summary = "The latest model result does not predict a failure for this set of sensor readings. Continue routine monitoring.";
+        review = "The submitted sensor values are displayed in the analysis panel. Compare them with normal operating ranges for this equipment.";
+        guidance = "Continue scheduled preventive maintenance and monitor future sensor readings for changes.";
+    } else {
+        summary = "A prediction record exists, but its result could not be classified automatically. Review the saved model status.";
+        review = "Check the sensor values and compare them with the equipment's recommended operating limits.";
+        guidance = "Review the prediction result with a maintenance technician before making maintenance decisions.";
+    }
+
+    grid.innerHTML = `
+        <div class="insight-card">
+            <div class="insight-icon">📊</div>
+            <h3>Prediction Summary</h3>
+            <p>${summary}</p>
+        </div>
+        <div class="insight-card">
+            <div class="insight-icon">🔍</div>
+            <h3>Sensor Review</h3>
+            <p>${review}</p>
+        </div>
+        <div class="insight-card">
+            <div class="insight-icon">🛠</div>
+            <h3>Maintenance Guidance</h3>
+            <p>${guidance}</p>
+        </div>
+    `;
+}
+
+function renderHistory(records) {
+    const body = $("historyBody");
+    const empty = $("historyEmpty");
+
+    if (!records.length) {
+        body.innerHTML = "";
+        empty.classList.remove("hidden");
+        return;
+    }
+
+    empty.classList.add("hidden");
+
+    body.innerHTML = records.slice(0, 100).map(record => {
+        const failure = isFailure(record);
+        const statusClass = failure === true ? "failure" :
+            failure === false ? "healthy" : "";
+
+        const date = getRecordDate(record);
+
+        return `
+            <tr>
+                <td>#${safeText(record.id)}</td>
+                <td>${getMachineId(record)}</td>
+                <td>${safeText(getMachineType(record))}</td>
+                <td>${formatNumber(record.air_temperature)}</td>
+                <td>${formatNumber(record.process_temperature)}</td>
+                <td>${formatNumber(record.rotational_speed,0)}</td>
+                <td>${formatNumber(record.torque)}</td>
+                <td>${formatNumber(record.tool_wear,0)}</td>
+                <td><span class="table-status ${statusClass}">${getStatusLabel(record)}</span></td>
+                <td>${date ? date.toLocaleString() : "—"}</td>
+            </tr>
+        `;
+    }).join("");
+}
+
+$("machineFilter").addEventListener("change", renderDashboard);
+$("refreshButton").addEventListener("click", loadDashboard);
+
+loadDashboard();
+</script>
+</body>
+</html>

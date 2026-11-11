@@ -1,0 +1,706 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Component Details | PredictX</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    background:#F5F3FF!important;
+    color:#252343;
+    font-family:"Segoe UI",Arial,sans-serif;
+}
+.layout{display:flex;min-height:100vh}
+.sidebar{
+    width:255px;min-width:255px;
+    padding:30px 20px;
+    background:linear-gradient(180deg,#19183D,#342A80);
+    color:white;display:flex;flex-direction:column;
+}
+.logo{display:flex;align-items:center;gap:12px;margin-bottom:55px}
+.logo-icon{
+    width:43px;height:43px;display:grid;place-items:center;
+    background:#7967ED;border-radius:12px;font-size:23px
+}
+.logo h2{margin:0;color:white}
+.logo span{font-size:10px;color:#d8d6f0}
+.menu-label{color:#aaa7d0;font-size:10px;letter-spacing:2px}
+.sidebar-nav{display:flex;flex-direction:column;gap:9px}
+.nav-item{
+    color:#d8d6f0;padding:13px 14px;
+    border-radius:10px;text-decoration:none
+}
+.nav-item.active,.nav-item:hover{background:#6554D9;color:white}
+.sidebar-bottom{margin-top:auto;color:#c9c5e9;font-size:12px}
+main{flex:1;min-width:0;padding:0 38px}
+.topbar{
+    min-height:100px;display:flex;align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid #E3DDFB;margin-bottom:25px
+}
+.breadcrumb{font-size:10px;letter-spacing:2px;color:#85829F}
+.topbar h2{margin:5px 0}
+.back-link{color:#6554D9;text-decoration:none;font-size:13px}
+.hero{
+    padding:28px;border-radius:18px;color:white;
+    background:linear-gradient(120deg,#24234C,#5145A5);
+    margin-bottom:22px
+}
+.hero h1{color:white;margin:10px 0}
+.hero p{color:#e4e1ff;margin:0;line-height:1.6}
+.tag{
+    display:inline-block;background:#eae6ff;color:#5745c3;
+    padding:7px 12px;border-radius:8px;font-size:12px;font-weight:bold
+}
+.content-grid{
+    display:grid;grid-template-columns:1.2fr .8fr;gap:20px
+}
+.panel{
+    background:white;border:1px solid #E3DDFB;
+    border-radius:16px;padding:24px;
+    box-shadow:0 8px 25px #302b6b0b;
+    margin-bottom:20px
+}
+.panel h2{font-size:18px;margin:0 0 15px}
+.panel p{font-size:13px;color:#777590;line-height:1.7}
+.info-item{margin-bottom:20px}
+.info-item:last-child{margin-bottom:0}
+.info-item h3{font-size:13px;margin:0 0 7px;color:#6554D9}
+.info-item p{margin:0}
+.status{
+    padding:15px;border-radius:12px;
+    background:#f5f3ff;border:1px solid #e3ddfb;
+    margin-bottom:12px
+}
+.status strong{display:block;margin-bottom:5px}
+.status p{margin:0;font-size:12px}
+.tip{
+    padding:18px;background:#f5f3ff;
+    border-left:4px solid #6554D9;
+    border-radius:8px;margin-top:15px
+}
+.tip p{margin:5px 0 0}
+.action-row{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}
+.action{
+    padding:12px 18px;border-radius:9px;
+    background:linear-gradient(120deg,#7967ED,#5141BD);
+    color:white;text-decoration:none;font-size:13px;font-weight:600
+}
+.action.secondary{
+    background:white;color:#6554D9;border:1px solid #6554D9
+}
+.footer{
+    border-top:1px solid #E3DDFB;margin-top:30px;
+    padding:22px 0;color:#85829F;font-size:11px
+}
+@media(max-width:850px){.content-grid{grid-template-columns:1fr}}
+@media(max-width:700px){
+    .layout{display:block}
+    .sidebar{width:100%;min-width:0;padding:16px}
+    .logo{margin-bottom:15px}
+    .sidebar-nav{flex-direction:row;overflow:auto}
+    main{padding:0 15px}
+}
+</style>
+</head>
+
+<body>
+<div class="layout">
+
+<aside class="sidebar">
+    <div class="logo">
+        <div class="logo-icon">⚙</div>
+        <div>
+            <h2>PredictX</h2>
+            <span>MAINTENANCE SYSTEM</span>
+        </div>
+    </div>
+
+    <p class="menu-label">MAIN MENU</p>
+    <nav class="sidebar-nav">
+        <a class="nav-item" href="index.html">▦ Dashboard</a>
+        <a class="nav-item active" href="machines.html">⚙ Machines</a>
+        <a class="nav-item" href="predictions.html">⌁ Predictions</a>
+    </nav>
+
+    <div class="sidebar-bottom">● System Ready</div>
+</aside>
+
+<main>
+<header class="topbar">
+    <div>
+        <div class="breadcrumb">PREDICTX / MACHINES / COMPONENT DETAILS</div>
+        <h2>Component Details</h2>
+    </div>
+    <a class="back-link" id="backLink" href="machines.html">← Back to Machine</a>
+</header>
+
+<section class="hero">
+    <span class="tag" id="machineTag">MCH-001</span>
+    <h1 id="componentName">Component Name</h1>
+    <p id="componentIntro">Component description</p>
+</section>
+
+<div class="content-grid">
+
+<section class="panel">
+    <h2>Component Overview</h2>
+
+    <div class="info-item">
+        <h3>Primary Function</h3>
+        <p id="functionText"></p>
+    </div>
+
+    <div class="info-item">
+        <h3>Importance in the Machine</h3>
+        <p id="importanceText"></p>
+    </div>
+
+    <div class="info-item">
+        <h3>How It Works</h3>
+        <p id="workingText"></p>
+    </div>
+
+    <div class="info-item">
+        <h3>Maintenance Requirements</h3>
+        <p id="maintenanceText"></p>
+    </div>
+</section>
+
+<section class="panel">
+    <h2>Common Problems</h2>
+    <div class="status">
+        <strong>⚠ Possible Issues</strong>
+        <p id="issuesText"></p>
+    </div>
+
+    <div class="status">
+        <strong>🔍 Inspection Points</strong>
+        <p id="inspectionText"></p>
+    </div>
+
+    <div class="status">
+        <strong>🚨 Warning Signs</strong>
+        <p id="warningText"></p>
+    </div>
+
+    <div class="tip">
+        <strong>Maintenance Tip</strong>
+        <p id="tipText"></p>
+    </div>
+</section>
+
+</div>
+
+<div class="action-row">
+    <a class="action" id="backButton" href="machine-details.html?id=MCH-001">
+        ← Back to Machine
+    </a>
+    <a class="action secondary" href="predictions.html">
+        Go to Predictions →
+    </a>
+</div>
+
+<footer class="footer">
+    © 2026 PredictX · Predictive Maintenance System
+</footer>
+</main>
+</div>
+
+<script>
+const componentData = {
+"MCH-001":[
+{
+name:"Stator",
+intro:"The stationary electromagnetic part of an electric motor.",
+function:"Contains the stationary windings that generate a rotating magnetic field.",
+importance:"The stator produces the magnetic field required to make the motor operate.",
+working:"Electrical current passes through the windings and generates a magnetic field that interacts with the rotor.",
+maintenance:"Inspect winding insulation, check electrical connections and monitor operating temperature.",
+issues:"Winding insulation failure, overheating, short circuits and electrical faults.",
+inspection:"Check winding resistance, insulation condition, terminal connections and temperature.",
+warning:"Burning smell, excessive heat, unusual electrical readings or motor tripping.",
+tip:"Keep the motor clean and avoid operating it beyond its rated electrical load."
+},
+{
+name:"Rotor",
+intro:"The rotating assembly inside an electric motor.",
+function:"Converts electromagnetic force into mechanical rotation.",
+importance:"The rotor is responsible for producing the motor's rotating mechanical output.",
+working:"The magnetic field produced by the stator creates torque that makes the rotor rotate.",
+maintenance:"Inspect rotor balance, shaft alignment and signs of mechanical damage.",
+issues:"Rotor imbalance, broken rotor bars, deformation and excessive vibration.",
+inspection:"Monitor vibration, rotational speed and bearing condition.",
+warning:"Unusual vibration, reduced speed, excessive noise or overheating.",
+tip:"Check rotor alignment and vibration regularly."
+},
+{
+name:"Bearings",
+intro:"Mechanical supports that allow the motor shaft to rotate smoothly.",
+function:"Reduce friction and support the rotating shaft.",
+importance:"Healthy bearings prevent excessive vibration and shaft damage.",
+working:"Rolling elements move between bearing races, allowing smooth rotation with reduced friction.",
+maintenance:"Apply appropriate lubrication and inspect for wear and contamination.",
+issues:"Lubrication failure, wear, overheating and bearing fatigue.",
+inspection:"Check vibration, bearing temperature, noise and lubrication.",
+warning:"Grinding sounds, increased temperature and abnormal vibration.",
+tip:"Use the recommended lubricant and replacement interval."
+},
+{
+name:"Cooling Fan",
+intro:"The fan responsible for removing heat from the electric motor.",
+function:"Circulates air around the motor to dissipate heat.",
+importance:"Prevents the motor from overheating during continuous operation.",
+working:"The fan rotates with the motor shaft and moves cooling air over the motor body.",
+maintenance:"Clean fan blades and air passages and inspect fan damage.",
+issues:"Blocked airflow, broken blades, dust accumulation and loose fan connections.",
+inspection:"Check airflow, blade condition and fan rotation.",
+warning:"Rising motor temperature or weak airflow.",
+tip:"Keep ventilation openings free from dust and obstruction."
+},
+{
+name:"Shaft",
+intro:"The mechanical output shaft of an electric motor.",
+function:"Transfers rotational power from the motor to connected machinery.",
+importance:"It provides the mechanical connection between the motor and its load.",
+working:"The rotor rotates the shaft, which transfers torque to the attached equipment.",
+maintenance:"Check alignment, surface wear and shaft condition.",
+issues:"Misalignment, bending, fatigue and surface damage.",
+inspection:"Inspect shaft alignment, runout and coupling condition.",
+warning:"Excessive vibration, unusual noise and coupling wear.",
+tip:"Maintain proper alignment between the motor and driven equipment."
+},
+{
+name:"Motor Housing",
+intro:"The external body that encloses and protects motor components.",
+function:"Provides structural support and protects internal motor parts.",
+importance:"It protects electrical and mechanical assemblies from external damage.",
+working:"The housing supports the stator and provides a protective enclosure.",
+maintenance:"Clean external surfaces and inspect mounting points and corrosion.",
+issues:"Cracks, corrosion, loose mounting bolts and blocked cooling fins.",
+inspection:"Check housing integrity, mounting bolts and surface temperature.",
+warning:"Visible cracks, loose fittings and abnormal heating.",
+tip:"Keep the housing clean and ensure all mounting bolts remain secure."
+}
+],
+
+"MCH-002":[
+{
+name:"Impeller",
+intro:"The rotating component that transfers energy to the pumped fluid.",
+function:"Increases fluid velocity through centrifugal action.",
+importance:"It is the main energy-transfer component of a centrifugal pump.",
+working:"The impeller rotates and throws fluid outward from its centre toward the pump casing.",
+maintenance:"Inspect blades for erosion, corrosion and deposits.",
+issues:"Cavitation damage, erosion, blockage and imbalance.",
+inspection:"Check impeller blades, vibration and pump performance.",
+warning:"Reduced flow, unusual noise and increased vibration.",
+tip:"Avoid operating the pump under conditions that cause cavitation."
+},
+{
+name:"Pump Casing",
+intro:"The outer chamber that surrounds the impeller.",
+function:"Collects and directs fluid from the impeller toward the discharge outlet.",
+importance:"Maintains the fluid path and supports pressure development.",
+working:"The casing converts part of the fluid velocity into pressure as fluid moves toward the outlet.",
+maintenance:"Inspect for leakage, corrosion and cracks.",
+issues:"Corrosion, leakage, erosion and casing damage.",
+inspection:"Check casing joints, seals and pressure condition.",
+warning:"Visible leakage, unusual pressure changes and corrosion.",
+tip:"Inspect casing joints and maintain proper operating pressure."
+},
+{
+name:"Pump Shaft",
+intro:"The rotating shaft that connects the drive source to the impeller.",
+function:"Transfers torque from the motor to the impeller.",
+importance:"Ensures that the impeller rotates at the required speed.",
+working:"The motor drives the shaft, which rotates the attached impeller.",
+maintenance:"Inspect alignment, shaft wear and coupling condition.",
+issues:"Shaft bending, misalignment, fatigue and corrosion.",
+inspection:"Check shaft runout, alignment and vibration.",
+warning:"Excessive vibration, leakage around seals and unusual noise.",
+tip:"Maintain correct motor-pump alignment."
+},
+{
+name:"Mechanical Seal",
+intro:"A sealing arrangement around the rotating pump shaft.",
+function:"Prevents pumped fluid from leaking along the shaft.",
+importance:"Protects the pump area and maintains fluid containment.",
+working:"Stationary and rotating sealing faces remain in contact to restrict leakage.",
+maintenance:"Inspect sealing faces and check for leakage.",
+issues:"Seal wear, overheating, contamination and damaged sealing faces.",
+inspection:"Observe leakage rate, seal temperature and seal condition.",
+warning:"Visible fluid leakage and overheating around the seal.",
+tip:"Avoid dry running and maintain suitable operating conditions."
+},
+{
+name:"Bearings",
+intro:"Supports the rotating pump shaft.",
+function:"Maintains shaft position and reduces rotational friction.",
+importance:"Provides stable shaft rotation and reduces mechanical vibration.",
+working:"Rolling elements support the shaft while allowing it to rotate.",
+maintenance:"Lubricate as recommended and monitor bearing condition.",
+issues:"Wear, lubrication failure, contamination and overheating.",
+inspection:"Monitor bearing temperature, vibration and noise.",
+warning:"Grinding noise, excessive heat and vibration.",
+tip:"Use the correct lubricant and inspect bearing condition periodically."
+},
+{
+name:"Coupling",
+intro:"Mechanical connection between the pump and its driving motor.",
+function:"Transfers rotational power from the motor to the pump shaft.",
+importance:"Allows both shafts to operate together.",
+working:"The coupling connects the two shafts and transfers torque.",
+maintenance:"Check alignment, coupling wear and fasteners.",
+issues:"Misalignment, damaged flexible elements and loose fasteners.",
+inspection:"Inspect coupling condition and shaft alignment.",
+warning:"Vibration, coupling noise and abnormal wear.",
+tip:"Verify alignment after installation or major maintenance."
+}
+],
+
+"MCH-003":[
+{
+name:"Input Gear",
+intro:"The first gear in the gearbox power transmission path.",
+function:"Receives mechanical power from the input shaft.",
+importance:"Introduces rotational energy into the gearbox.",
+working:"The input gear meshes with other gears to transfer rotation and torque.",
+maintenance:"Inspect tooth surfaces, lubrication and gear alignment.",
+issues:"Tooth wear, pitting, cracking and poor lubrication.",
+inspection:"Check tooth condition, backlash and gear noise.",
+warning:"Gear rattling, metal particles in oil and vibration.",
+tip:"Maintain the recommended lubricant level and grade."
+},
+{
+name:"Output Gear",
+intro:"The gear that delivers the modified rotational output.",
+function:"Transfers power at the required speed and torque.",
+importance:"Determines the gearbox output characteristics.",
+working:"It meshes with the connected gears to produce the required output ratio.",
+maintenance:"Inspect gear teeth and monitor lubrication condition.",
+issues:"Tooth damage, wear, pitting and misalignment.",
+inspection:"Check gear backlash, noise and tooth surface condition.",
+warning:"Abnormal noise, reduced performance and metal debris.",
+tip:"Check gear contact and lubrication during scheduled inspections."
+},
+{
+name:"Gear Shaft",
+intro:"The shaft that supports and rotates the gearbox gears.",
+function:"Carries gears and transfers torque through the gearbox.",
+importance:"Maintains the correct position of gears during power transmission.",
+working:"The shaft rotates with the connected gear assembly and transfers mechanical power.",
+maintenance:"Inspect alignment, surface wear and shaft condition.",
+issues:"Shaft bending, fatigue, misalignment and excessive wear.",
+inspection:"Check shaft runout, bearing support and alignment.",
+warning:"Vibration, unusual noise and irregular gear movement.",
+tip:"Monitor shaft alignment and avoid excessive loading."
+},
+{
+name:"Bearings",
+intro:"Supports gearbox shafts and allows smooth rotation.",
+function:"Reduces friction and maintains shaft positioning.",
+importance:"Prevents unwanted movement and supports reliable gear operation.",
+working:"Bearing elements allow shafts to rotate while carrying mechanical loads.",
+maintenance:"Check lubrication, temperature and wear.",
+issues:"Bearing fatigue, contamination, overheating and lubrication failure.",
+inspection:"Monitor bearing temperature, vibration and noise.",
+warning:"Grinding sounds, hot bearing surfaces and increasing vibration.",
+tip:"Maintain suitable lubrication and replace worn bearings promptly."
+},
+{
+name:"Lubrication System",
+intro:"The system that supplies lubricant to moving gearbox components.",
+function:"Reduces friction and removes heat from gears and bearings.",
+importance:"Protects components from excessive wear and overheating.",
+working:"Lubricant forms a protective film between moving surfaces.",
+maintenance:"Check oil level, oil quality, leaks and filtration.",
+issues:"Low oil level, contamination, degraded lubricant and leakage.",
+inspection:"Inspect oil colour, level, viscosity and metal particles.",
+warning:"High operating temperature, unusual noise and oil leakage.",
+tip:"Use the specified lubricant and follow oil replacement schedules."
+},
+{
+name:"Gear Housing",
+intro:"The protective enclosure surrounding the gearbox assembly.",
+function:"Holds gears, shafts and bearings in their correct positions.",
+importance:"Provides structural support and contains the lubricant.",
+working:"The housing maintains gear alignment and protects internal components.",
+maintenance:"Inspect for cracks, leakage, corrosion and loose fittings.",
+issues:"Oil leakage, cracks, loose fasteners and damaged mounting points.",
+inspection:"Check joints, mounting bolts and housing temperature.",
+warning:"Oil stains, unusual vibration and visible cracks.",
+tip:"Keep the housing clean and check for lubricant leaks."
+}
+],
+
+"MCH-004":[
+{
+name:"Compressor Head",
+intro:"The assembly where air compression takes place.",
+function:"Contains the main compression mechanism.",
+importance:"Determines the compressor's ability to generate compressed air.",
+working:"The compression mechanism reduces the volume of incoming air to increase pressure.",
+maintenance:"Inspect for leaks, overheating and internal wear.",
+issues:"Overheating, worn internal parts and pressure loss.",
+inspection:"Check operating temperature, pressure and leakage.",
+warning:"Reduced pressure, excessive heat and unusual noise.",
+tip:"Maintain proper cooling and follow the recommended service schedule."
+},
+{
+name:"Piston",
+intro:"The moving component inside the compressor cylinder.",
+function:"Compresses air by moving inside the cylinder.",
+importance:"Produces the pressure increase needed for compressed air.",
+working:"The piston moves through the cylinder, reducing the air volume during the compression stroke.",
+maintenance:"Inspect piston rings, cylinder surfaces and lubrication.",
+issues:"Ring wear, scoring, overheating and excessive clearance.",
+inspection:"Check compression performance, noise and oil consumption.",
+warning:"Reduced pressure, excessive oil use and knocking sounds.",
+tip:"Maintain lubrication and avoid operating the compressor above its rated capacity."
+},
+{
+name:"Intake Valve",
+intro:"The valve that controls air entering the compressor cylinder.",
+function:"Allows fresh air to enter during the intake stroke.",
+importance:"Ensures the cylinder receives the required air supply.",
+working:"The valve opens during intake and closes during compression.",
+maintenance:"Inspect valve seating and remove dirt deposits.",
+issues:"Sticking, leakage, damaged valve plates and contamination.",
+inspection:"Check valve movement, seating and intake airflow.",
+warning:"Reduced air intake, unusual noise and poor compressor performance.",
+tip:"Keep intake filters clean to prevent valve contamination."
+},
+{
+name:"Discharge Valve",
+intro:"The valve that releases compressed air from the cylinder.",
+function:"Allows compressed air to flow toward the storage tank.",
+importance:"Maintains correct discharge flow and pressure.",
+working:"The valve opens when cylinder pressure exceeds discharge pressure.",
+maintenance:"Inspect valve seating and check for leakage or damage.",
+issues:"Valve leakage, sticking, overheating and damaged plates.",
+inspection:"Monitor discharge pressure and valve temperature.",
+warning:"Low delivery pressure and excessive discharge temperature.",
+tip:"Inspect valves periodically and replace damaged sealing parts."
+},
+{
+name:"Air Tank",
+intro:"The pressure vessel used to store compressed air.",
+function:"Stores compressed air for later use.",
+importance:"Provides a stable supply of air and reduces pressure fluctuations.",
+working:"Compressed air enters the tank and is stored until required by connected equipment.",
+maintenance:"Drain accumulated moisture and inspect for corrosion.",
+issues:"Corrosion, pressure leakage, drain blockage and structural damage.",
+inspection:"Check pressure gauge, drain valve and tank condition.",
+warning:"Pressure loss, moisture accumulation and visible corrosion.",
+tip:"Drain condensate regularly and follow pressure-vessel inspection requirements."
+},
+{
+name:"Cooling System",
+intro:"The system that removes heat generated during air compression.",
+function:"Controls compressor temperature.",
+importance:"Prevents overheating and protects internal components.",
+working:"Airflow or a cooling arrangement removes heat from the compressor assembly.",
+maintenance:"Clean cooling fins and inspect fans and airflow passages.",
+issues:"Blocked passages, fan failure and poor heat dissipation.",
+inspection:"Check airflow, fan rotation and operating temperature.",
+warning:"High temperature, thermal shutdown and weak airflow.",
+tip:"Keep cooling passages clean and unobstructed."
+}
+],
+
+"MCH-005":[
+{
+name:"Conveyor Belt",
+intro:"The continuous moving surface that carries materials.",
+function:"Transports products and materials between locations.",
+importance:"It is the main material-carrying element of the conveyor.",
+working:"The drive pulley moves the belt around the conveyor structure.",
+maintenance:"Inspect belt tension, surface damage and tracking.",
+issues:"Belt tearing, slipping, misalignment and excessive wear.",
+inspection:"Check belt surface, tracking and tension.",
+warning:"Belt slipping, unusual movement and damaged edges.",
+tip:"Maintain correct belt tension and remove material buildup."
+},
+{
+name:"Rollers",
+intro:"Rotating supports positioned beneath or around the conveyor belt.",
+function:"Support and guide the belt during movement.",
+importance:"Reduce belt friction and help maintain smooth transportation.",
+working:"Rollers rotate as the belt moves over them.",
+maintenance:"Inspect roller rotation, bearings and accumulated material.",
+issues:"Bearing failure, seized rollers, wear and misalignment.",
+inspection:"Check roller rotation, noise and surface condition.",
+warning:"Roller noise, uneven belt movement and excessive resistance.",
+tip:"Replace seized or damaged rollers promptly."
+},
+{
+name:"Drive Motor",
+intro:"The motor that provides mechanical power to the conveyor.",
+function:"Supplies the torque required to move the belt.",
+importance:"Controls the conveyor's movement and operating speed.",
+working:"The motor rotates the drive mechanism that moves the conveyor belt.",
+maintenance:"Monitor temperature, vibration and electrical connections.",
+issues:"Overheating, bearing wear, electrical faults and overloading.",
+inspection:"Check current, temperature, vibration and motor speed.",
+warning:"Motor tripping, unusual noise and slow belt movement.",
+tip:"Avoid overloading the conveyor and monitor motor operating conditions."
+},
+{
+name:"Gearbox",
+intro:"The transmission unit between the drive motor and conveyor.",
+function:"Adjusts rotational speed and torque.",
+importance:"Provides the suitable output needed to move the conveyor load.",
+working:"Gears transfer power from the motor while modifying speed and torque.",
+maintenance:"Inspect gear lubrication, temperature and vibration.",
+issues:"Gear wear, oil leakage, bearing damage and overheating.",
+inspection:"Check oil condition, noise and operating temperature.",
+warning:"Gear rattling, oil leakage and excessive heat.",
+tip:"Maintain the specified gearbox lubricant and inspect for leaks."
+},
+{
+name:"Drive Pulley",
+intro:"The pulley responsible for transmitting movement to the belt.",
+function:"Transfers rotational motion from the drive assembly to the belt.",
+importance:"Provides the traction needed to move conveyor materials.",
+working:"The pulley rotates and moves the belt through frictional contact.",
+maintenance:"Inspect pulley lagging, alignment and surface condition.",
+issues:"Wear, belt slippage, buildup and misalignment.",
+inspection:"Check pulley surface, belt contact and alignment.",
+warning:"Belt slipping, uneven movement and worn pulley surfaces.",
+tip:"Keep the pulley surface clean and maintain proper belt tension."
+},
+{
+name:"Frame",
+intro:"The supporting structure of the conveyor system.",
+function:"Supports rollers, pulleys and the conveyor belt.",
+importance:"Maintains the structural stability and alignment of the system.",
+working:"The frame carries the mechanical load and holds conveyor components in position.",
+maintenance:"Inspect joints, supports, corrosion and mounting bolts.",
+issues:"Cracks, deformation, corrosion and loose connections.",
+inspection:"Check frame alignment, structural joints and supports.",
+warning:"Visible bending, unusual vibration and loose supports.",
+tip:"Inspect structural supports regularly, especially under heavy loads."
+}
+],
+
+"MCH-006":[
+{
+name:"Hydraulic Cylinder",
+intro:"The actuator that produces the pressing movement.",
+function:"Converts hydraulic pressure into linear mechanical force.",
+importance:"Generates the force required for pressing operations.",
+working:"Pressurised hydraulic fluid acts on the piston to create linear movement.",
+maintenance:"Inspect seals, cylinder surfaces and fluid leakage.",
+issues:"Seal failure, internal leakage, scoring and pressure loss.",
+inspection:"Check cylinder movement, pressure and external leakage.",
+warning:"Slow movement, oil leakage and reduced pressing force.",
+tip:"Keep hydraulic fluid clean and inspect seals regularly."
+},
+{
+name:"Piston",
+intro:"The moving element inside the hydraulic cylinder.",
+function:"Transfers hydraulic pressure into mechanical movement.",
+importance:"Produces the controlled movement of the press.",
+working:"Hydraulic fluid pressure pushes the piston through the cylinder.",
+maintenance:"Inspect piston surface, seals and movement.",
+issues:"Seal wear, surface scoring, leakage and sticking.",
+inspection:"Check piston movement, sealing and cylinder pressure.",
+warning:"Jerky movement, pressure loss and hydraulic leakage.",
+tip:"Use clean hydraulic fluid and maintain proper sealing."
+},
+{
+name:"Hydraulic Pump",
+intro:"The unit that supplies pressurised fluid to the hydraulic circuit.",
+function:"Creates the fluid flow needed to operate the press.",
+importance:"Provides the hydraulic power required by the cylinder.",
+working:"The pump draws fluid from the reservoir and sends it into the pressurised circuit.",
+maintenance:"Monitor fluid level, filter condition and pump noise.",
+issues:"Cavitation, internal wear, leakage and reduced flow.",
+inspection:"Check operating pressure, flow and pump temperature.",
+warning:"Whining noise, low pressure and slow press movement.",
+tip:"Maintain correct fluid levels and clean hydraulic filters."
+},
+{
+name:"Control Valve",
+intro:"The valve that regulates hydraulic fluid flow.",
+function:"Controls the direction and pressure of hydraulic fluid.",
+importance:"Allows controlled movement and operation of the press.",
+working:"The valve directs fluid to the required side of the hydraulic actuator.",
+maintenance:"Inspect valve operation, connections and leakage.",
+issues:"Valve blockage, sticking, internal leakage and contamination.",
+inspection:"Check response, pressure regulation and fluid leakage.",
+warning:"Uncontrolled movement, delayed response and pressure fluctuation.",
+tip:"Keep hydraulic fluid clean to prevent valve blockage."
+},
+{
+name:"Hydraulic Hoses",
+intro:"Flexible lines that carry hydraulic fluid between system components.",
+function:"Transfer pressurised fluid through the hydraulic circuit.",
+importance:"Maintain fluid connections between the pump, valves and cylinder.",
+working:"Fluid flows through reinforced hoses to operate the hydraulic actuator.",
+maintenance:"Inspect hose surfaces, fittings and connections.",
+issues:"Cracks, abrasion, leakage and fitting damage.",
+inspection:"Check hose condition, fittings and signs of swelling.",
+warning:"Visible leakage, bulging hoses and pressure drops.",
+tip:"Replace damaged hoses immediately and use correctly rated replacements."
+},
+{
+name:"Press Frame",
+intro:"The structural body that supports the hydraulic press.",
+function:"Supports the cylinder, workpiece and pressing loads.",
+importance:"Maintains structural stability during pressing operations.",
+working:"The frame transfers and withstands the reaction forces produced during pressing.",
+maintenance:"Inspect structural joints, alignment and signs of deformation.",
+issues:"Cracks, bending, loose bolts and structural fatigue.",
+inspection:"Check frame alignment, welds and mounting points.",
+warning:"Visible deformation, unusual movement and structural cracks.",
+tip:"Never exceed the press's rated load capacity."
+}
+]
+};
+
+const params = new URLSearchParams(window.location.search);
+const machineId = params.get("id") || "MCH-001";
+const partIndex = Number.parseInt(params.get("part") || "0",10);
+
+const names = {
+"MCH-001":"Electric Motor",
+"MCH-002":"Centrifugal Pump",
+"MCH-003":"Industrial Gearbox",
+"MCH-004":"Air Compressor",
+"MCH-005":"Conveyor System",
+"MCH-006":"Hydraulic Press"
+};
+
+const machineComponents = componentData[machineId] || componentData["MCH-001"];
+const component = machineComponents[partIndex] || machineComponents[0];
+
+document.getElementById("machineTag").textContent =
+    machineId + " · " + names[machineId];
+
+document.getElementById("componentName").textContent = component.name;
+document.getElementById("componentIntro").textContent = component.intro;
+
+document.getElementById("functionText").textContent = component.function;
+document.getElementById("importanceText").textContent = component.importance;
+document.getElementById("workingText").textContent = component.working;
+document.getElementById("maintenanceText").textContent = component.maintenance;
+document.getElementById("issuesText").textContent = component.issues;
+document.getElementById("inspectionText").textContent = component.inspection;
+document.getElementById("warningText").textContent = component.warning;
+document.getElementById("tipText").textContent = component.tip;
+
+const machineUrl =
+    "machine-details.html?id=" + encodeURIComponent(machineId);
+
+document.getElementById("backLink").href = machineUrl;
+document.getElementById("backButton").href = machineUrl;
+</script>
+</body>
+</html>

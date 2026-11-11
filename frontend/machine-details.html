@@ -1,0 +1,1287 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Machine Details | PredictX</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+:root {
+    --purple:#6554D9;
+    --dark:#19183D;
+    --lavender:#F5F3FF;
+    --border:#E3DDFB;
+    --text:#252343;
+    --muted:#85829F;
+}
+
+* { box-sizing:border-box; }
+
+body {
+    margin:0;
+    background:var(--lavender)!important;
+    color:var(--text);
+    font-family:"Segoe UI",Arial,sans-serif;
+}
+
+.app-layout {
+    display:flex;
+    min-height:100vh;
+}
+
+.sidebar {
+    width:255px;
+    min-width:255px;
+    background:linear-gradient(180deg,#19183D,#342A80)!important;
+    color:white;
+    padding:30px 20px;
+    display:flex;
+    flex-direction:column;
+}
+
+.logo {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:55px;
+}
+
+.logo-icon {
+    width:43px;
+    height:43px;
+    display:grid;
+    place-items:center;
+    background:#7967ED;
+    border-radius:12px;
+    font-size:23px;
+}
+
+.logo h2 {
+    margin:0;
+    color:white;
+}
+
+.logo span {
+    font-size:10px;
+    color:#d8d6f0;
+}
+
+.menu-label {
+    color:#aaa7d0;
+    font-size:10px;
+    letter-spacing:2px;
+}
+
+.sidebar-nav {
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+}
+
+.nav-item {
+    color:#d8d6f0;
+    padding:13px 14px;
+    border-radius:10px;
+    text-decoration:none;
+}
+
+.nav-item.active,
+.nav-item:hover {
+    background:#6554D9;
+    color:white;
+}
+
+.sidebar-bottom {
+    margin-top:auto;
+    color:#c9c5e9;
+    font-size:12px;
+}
+
+.main-content {
+    flex:1;
+    min-width:0;
+    padding:0 38px;
+}
+
+.topbar {
+    min-height:100px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--border);
+    margin-bottom:25px;
+}
+
+.breadcrumb {
+    font-size:10px;
+    letter-spacing:2px;
+    color:var(--muted);
+}
+
+.topbar h2 {
+    margin:5px 0;
+    color:var(--text);
+}
+
+.back-link {
+    color:var(--purple);
+    text-decoration:none;
+    font-size:13px;
+}
+
+.hero {
+    background:linear-gradient(120deg,#24234c,#5145a5);
+    color:white;
+    padding:28px;
+    border-radius:18px;
+    margin-bottom:22px;
+}
+
+.hero h1 {
+    color:white;
+    margin:7px 0;
+}
+
+.hero p {
+    color:#e4e1ff;
+    margin:0;
+}
+
+.machine-health-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.machine-health-info span {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.machine-id {
+    display:inline-block;
+    background:#eae6ff;
+    color:#5745c3;
+    padding:7px 12px;
+    border-radius:8px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.machine-layout {
+    display:grid;
+    grid-template-columns:minmax(0,1.5fr) minmax(260px,.8fr);
+    gap:20px;
+}
+
+.panel {
+    background:white;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px;
+    box-shadow:0 8px 25px #302b6b0b;
+    min-width:0;
+}
+
+.panel h2 {
+    font-size:18px;
+    margin:0 0 7px;
+    color:var(--text);
+}
+
+.panel-subtitle {
+    color:var(--muted);
+    font-size:12px;
+    margin-bottom:18px;
+}
+
+#machineCanvas {
+    width:100%;
+    height:390px;
+    display:block;
+    border-radius:12px;
+    background:linear-gradient(145deg,#f5f2ff,#e8e3ff);
+}
+
+.controls-note {
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+    color:var(--muted);
+    font-size:11px;
+    margin-top:12px;
+}
+
+.sensor-grid {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+}
+
+.sensor-card {
+    background:#f7f5ff;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:15px;
+}
+
+.sensor-card small {
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+}
+
+.sensor-card strong {
+    display:block;
+    font-size:21px;
+    margin-top:8px;
+    color:var(--text);
+}
+
+.sensor-card span {
+    font-size:10px;
+    color:var(--muted);
+}
+
+.sensor-card:last-child {
+    grid-column:1/-1;
+}
+
+.component-section {
+    margin-top:24px;
+}
+
+.component-grid {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:13px;
+}
+
+.component-card {
+    padding:17px;
+    background:#f8f6ff;
+    border:1px solid var(--border);
+    border-radius:12px;
+    transition:.2s;
+}
+
+.component-card:hover {
+    transform:translateY(-3px);
+    border-color:#a99af7;
+    background:#efedff;
+}
+
+.component-card .emoji {
+    font-size:26px;
+}
+
+.component-card h3 {
+    font-size:14px;
+    margin:9px 0 5px;
+    color:var(--text);
+}
+
+.component-card p {
+    font-size:11px;
+    color:var(--muted);
+    line-height:1.5;
+}
+
+.component-card a {
+    display:inline-block;
+    margin-top:10px;
+    color:var(--purple);
+    font-size:11px;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.info-grid {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:13px;
+    margin-top:20px;
+}
+
+.info-card {
+    padding:16px;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:12px;
+}
+
+.info-card small {
+    color:var(--muted);
+    font-size:11px;
+}
+
+.info-card strong {
+    display:block;
+    margin-top:6px;
+    color:var(--text);
+}
+
+.footer {
+    border-top:1px solid var(--border);
+    margin-top:40px;
+    padding:22px 0;
+    color:var(--muted);
+    font-size:11px;
+}
+
+@media(max-width:1000px) {
+    .machine-layout {
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:700px) {
+    .app-layout {
+        display:block;
+    }
+
+    .sidebar {
+        width:100%;
+        min-width:0;
+        padding:16px;
+    }
+
+    .logo {
+        margin-bottom:15px;
+    }
+
+    .sidebar-nav {
+        flex-direction:row;
+        overflow:auto;
+    }
+
+    .main-content {
+        padding:0 15px;
+    }
+
+    .component-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .info-grid {
+        grid-template-columns:1fr;
+    }
+
+    #machineCanvas {
+        height:300px;
+    }
+}
+
+@media(max-width:390px) {
+    .component-grid,
+    .sensor-grid {
+        grid-template-columns:1fr;
+    }
+
+    .sensor-card:last-child {
+        grid-column:auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-icon">⚙</div>
+        <div>
+            <h2>PredictX</h2>
+            <span>MAINTENANCE SYSTEM</span>
+        </div>
+    </div>
+
+    <p class="menu-label">MAIN MENU</p>
+
+    <nav class="sidebar-nav">
+        <a class="nav-item" href="index.html">▦ Dashboard</a>
+        <a class="nav-item active" href="machines.html">⚙ Machines</a>
+        <a class="nav-item" href="predictions.html">⌁ Predictions</a>
+    </nav>
+
+    <div class="sidebar-bottom">● System Ready</div>
+
+</aside>
+
+<main class="main-content">
+
+<header class="topbar">
+    <div>
+        <div class="breadcrumb">PREDICTX / MACHINES / DETAILS</div>
+        <h2>Machine Details</h2>
+    </div>
+
+    <a class="back-link" href="machines.html">← Machine Inventory</a>
+</header>
+
+
+<section class="hero">
+    <span class="machine-id" id="machineId">MCH-001</span>
+
+    <h1 id="machineName">Electric Motor</h1>
+
+    <p id="machineDescription">Industrial electric motor profile</p>
+
+    <div class="machine-health-info">
+        <span id="machineHealthStatus">Loading status...</span>
+        <span id="machinePredictionStatus">Loading prediction...</span>
+    </div>
+</section>
+
+
+<div class="machine-layout">
+
+<section class="panel">
+
+    <h2>Interactive 3D Machine Model</h2>
+    <p class="panel-subtitle">Explore the machine from every angle.</p>
+
+    <canvas id="machineCanvas"></canvas>
+
+    <div class="controls-note">
+        <span>↔ Drag to rotate</span>
+        <span>Scroll to zoom</span>
+        <span>Automatic 360° rotation</span>
+    </div>
+
+</section>
+
+<section class="panel">
+
+    <h2>Sensor Readings</h2>
+
+    <p class="panel-subtitle" id="sensorNote">
+        Loading machine readings...
+    </p>
+
+    <div class="sensor-grid">
+
+        <div class="sensor-card">
+            <small>Air Temperature</small>
+            <strong id="airTemp">--</strong>
+            <span>Kelvin</span>
+        </div>
+
+        <div class="sensor-card">
+            <small>Process Temperature</small>
+            <strong id="processTemp">--</strong>
+            <span>Kelvin</span>
+        </div>
+
+        <div class="sensor-card">
+            <small>Rotational Speed</small>
+            <strong id="speed">--</strong>
+            <span>RPM</span>
+        </div>
+
+        <div class="sensor-card">
+            <small>Torque</small>
+            <strong id="torque">--</strong>
+            <span>Nm</span>
+        </div>
+
+        <div class="sensor-card">
+            <small>Tool Wear</small>
+            <strong id="wear">--</strong>
+            <span>Minutes</span>
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+<section class="panel component-section">
+
+    <h2>Machine Components</h2>
+
+    <p class="panel-subtitle">
+        Explore the main components and their functions.
+    </p>
+
+    <div class="component-grid" id="componentGrid"></div>
+
+</section>
+
+<div class="info-grid">
+
+    <div class="info-card">
+        <small>Machine ID</small>
+        <strong id="infoId">MCH-001</strong>
+    </div>
+
+    <div class="info-card">
+        <small>Machine Category</small>
+        <strong id="infoType">Electric Motor</strong>
+    </div>
+
+    <div class="info-card">
+        <small>ML Machine Type</small>
+        <strong id="infoMLType">L</strong>
+    </div>
+
+</div>
+
+<footer class="footer">
+    © 2026 PredictX · Predictive Maintenance System
+</footer>
+
+</main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+<script>
+
+// ==========================================
+// 1. MACHINE INFORMATION
+// ==========================================
+
+const machines = {
+
+    "MCH-001": {
+        name:"Electric Motor",
+        description:"Industrial electric motor used to convert electrical energy into mechanical rotation.",
+        type:"L",
+        components:[
+            ["🔄","Stator","Stationary winding assembly that creates a magnetic field."],
+            ["⚙️","Rotor","Rotating assembly that produces mechanical movement."],
+            ["⭕","Bearings","Support the rotating shaft and reduce friction."],
+            ["🌬️","Cooling Fan","Moves air to control operating temperature."],
+            ["🔩","Shaft","Transfers mechanical power to connected equipment."],
+            ["📦","Motor Housing","Protects internal components."]
+        ]
+    },
+
+    "MCH-002": {
+        name:"Centrifugal Pump",
+        description:"A pump that uses a rotating impeller to move fluids through a system.",
+        type:"M",
+        components:[
+            ["🌀","Impeller","Transfers rotational energy to the fluid."],
+            ["🏠","Pump Casing","Contains and directs the moving fluid."],
+            ["🔩","Pump Shaft","Transfers rotation to the impeller."],
+            ["⭕","Mechanical Seal","Prevents fluid leakage around the shaft."],
+            ["⚙️","Bearings","Support the rotating shaft."],
+            ["🔗","Coupling","Connects the motor and pump shafts."]
+        ]
+    },
+
+    "MCH-003": {
+        name:"Industrial Gearbox",
+        description:"A mechanical transmission system that changes speed and torque.",
+        type:"H",
+        components:[
+            ["⚙️","Input Gear","Receives rotational power."],
+            ["🔧","Output Gear","Transfers modified speed and torque."],
+            ["🔩","Gear Shaft","Supports and rotates the gears."],
+            ["⭕","Bearings","Support the gearbox shafts."],
+            ["🛢️","Lubrication System","Reduces friction and wear."],
+            ["📦","Gear Housing","Encloses and protects the gears."]
+        ]
+    },
+
+    "MCH-004": {
+        name:"Air Compressor",
+        description:"Industrial equipment that compresses air for pneumatic applications.",
+        type:"L",
+        components:[
+            ["🔧","Compressor Head","Contains the compression mechanism."],
+            ["⬆️","Piston","Compresses air inside the cylinder."],
+            ["🔀","Intake Valve","Controls incoming air."],
+            ["🔀","Discharge Valve","Releases compressed air."],
+            ["🛢️","Air Tank","Stores compressed air."],
+            ["🌬️","Cooling System","Removes heat generated during compression."]
+        ]
+    },
+
+    "MCH-005": {
+        name:"Conveyor System",
+        description:"A material-handling system that transports items along a moving belt.",
+        type:"M",
+        components:[
+            ["🟫","Conveyor Belt","Carries materials along the system."],
+            ["⭕","Rollers","Support and guide the belt."],
+            ["⚙️","Drive Motor","Provides power to move the belt."],
+            ["🔩","Gearbox","Controls conveyor speed and torque."],
+            ["🔗","Drive Pulley","Transfers motion to the belt."],
+            ["🏗️","Frame","Supports the complete conveyor structure."]
+        ]
+    },
+
+    "MCH-006": {
+        name:"Hydraulic Press",
+        description:"A machine that uses hydraulic pressure to apply a large compressive force.",
+        type:"H",
+        components:[
+            ["⬆️","Hydraulic Cylinder","Converts fluid pressure into linear force."],
+            ["🔩","Piston","Moves inside the cylinder."],
+            ["🛢️","Hydraulic Pump","Creates fluid flow and pressure."],
+            ["🎛️","Control Valve","Regulates hydraulic fluid direction."],
+            ["🔗","Hydraulic Hoses","Carry pressurised fluid."],
+            ["🏗️","Press Frame","Supports the pressing load."]
+        ]
+    }
+
+};
+
+
+// ==========================================
+// 2. SELECTED MACHINE
+// ==========================================
+
+const requestedMachineId =
+    new URLSearchParams(window.location.search).get("id") || "MCH-001";
+
+const machineId = machines[requestedMachineId]
+    ? requestedMachineId
+    : "MCH-001";
+
+const machine = machines[machineId];
+
+document.getElementById("machineId").textContent = machineId;
+document.getElementById("machineName").textContent = machine.name;
+document.getElementById("machineDescription").textContent = machine.description;
+
+document.getElementById("infoId").textContent = machineId;
+document.getElementById("infoType").textContent = machine.name;
+document.getElementById("infoMLType").textContent = machine.type;
+
+
+// ==========================================
+// 3. DISPLAY MACHINE COMPONENTS
+// ==========================================
+
+const componentGrid = document.getElementById("componentGrid");
+
+machine.components.forEach((component,index) => {
+
+    const card = document.createElement("article");
+    card.className = "component-card";
+
+    const link = document.createElement("a");
+
+    link.textContent = "View component details →";
+
+    link.href =
+        `component-details.html?id=${encodeURIComponent(machineId)}&part=${index}`;
+
+    const icon = document.createElement("div");
+    icon.className = "emoji";
+    icon.textContent = component[0];
+
+    const heading = document.createElement("h3");
+    heading.textContent = component[1];
+
+    const description = document.createElement("p");
+    description.textContent = component[2];
+
+    card.append(icon,heading,description,link);
+
+    componentGrid.appendChild(card);
+
+});
+
+
+// ==========================================
+// 4. DEFAULT SAMPLE SENSOR READINGS
+// ==========================================
+
+const sampleReadings = {
+
+    "MCH-001": {
+        air_temperature:298.1,
+        process_temperature:308.6,
+        rotational_speed:1500,
+        torque:40,
+        tool_wear:20
+    },
+
+    "MCH-002": {
+        air_temperature:299.5,
+        process_temperature:310.2,
+        rotational_speed:1450,
+        torque:42,
+        tool_wear:85
+    },
+
+    "MCH-003": {
+        air_temperature:301.2,
+        process_temperature:312.5,
+        rotational_speed:1380,
+        torque:48,
+        tool_wear:145
+    },
+
+    "MCH-004": {
+        air_temperature:302.8,
+        process_temperature:314.1,
+        rotational_speed:1300,
+        torque:53,
+        tool_wear:190
+    },
+
+    "MCH-005": {
+        air_temperature:297.8,
+        process_temperature:307.9,
+        rotational_speed:1520,
+        torque:38,
+        tool_wear:35
+    },
+
+    "MCH-006": {
+        air_temperature:300.4,
+        process_temperature:311.8,
+        rotational_speed:1400,
+        torque:46,
+        tool_wear:125
+    }
+
+};
+
+
+// ==========================================
+// 5. DISPLAY SENSOR READINGS
+// ==========================================
+
+function displayReadings(readings) {
+
+    document.getElementById("airTemp").textContent =
+        readings.air_temperature;
+
+    document.getElementById("processTemp").textContent =
+        readings.process_temperature;
+
+    document.getElementById("speed").textContent =
+        readings.rotational_speed;
+
+    document.getElementById("torque").textContent =
+        readings.torque;
+
+    document.getElementById("wear").textContent =
+        readings.tool_wear;
+
+}
+
+
+// ==========================================
+// 6. LOAD SENSOR READINGS FROM BACKEND
+// ==========================================
+
+async function loadSensorReadings() {
+
+    // Show sample readings immediately.
+    // This ensures the page never remains blank
+    // just because no prediction has been saved.
+
+    const defaults =
+        sampleReadings[machineId] || sampleReadings["MCH-001"];
+
+    displayReadings(defaults);
+
+    document.getElementById("sensorNote").textContent =
+        "Showing sample machine readings. Actual readings update after a prediction is recorded.";
+
+    // Try to get the latest prediction from Flask.
+
+    try {
+
+        const response = await fetch(
+            `http://127.0.0.1:5000/api/machines/${encodeURIComponent(machineId)}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Could not fetch machine data");
+        }
+
+        const data = await response.json();
+
+        // Display machine health status
+document.getElementById("machineHealthStatus").textContent =
+    "Machine Health: " + (data.status || "Unknown");
+
+// Display latest AI prediction status
+const latestPrediction =
+    data.latest_prediction || data.latestPrediction || data.prediction;
+
+document.getElementById("machinePredictionStatus").textContent =
+    latestPrediction
+        ? "AI Prediction: " + latestPrediction.prediction_status
+        : "AI Prediction: No prediction available";
+
+        // Support the common response property names.
+
+        const prediction =
+            data.latest_prediction ||
+            data.latestPrediction ||
+            data.prediction;
+
+        // If a database prediction exists,
+        // replace the sample values with its readings.
+
+        if (prediction) {
+
+            const readings = {
+
+                air_temperature:
+                    prediction.air_temperature ?? defaults.air_temperature,
+
+                process_temperature:
+                    prediction.process_temperature ?? defaults.process_temperature,
+
+                rotational_speed:
+                    prediction.rotational_speed ?? defaults.rotational_speed,
+
+                torque:
+                    prediction.torque ?? defaults.torque,
+
+                tool_wear:
+                    prediction.tool_wear ?? defaults.tool_wear
+
+            };
+
+            displayReadings(readings);
+
+            document.getElementById("sensorNote").textContent =
+                "Showing the latest recorded prediction readings.";
+
+        }
+
+    } catch(error) {
+
+        // Keep sample readings visible if backend
+        // is unavailable or no database data exists.
+
+        console.log("Using sample readings:", error.message);
+
+    }
+
+}
+
+loadSensorReadings();
+
+
+// ==========================================
+// 7. THREE.JS 3D MACHINE MODEL
+// ==========================================
+
+const canvas = document.getElementById("machineCanvas");
+
+const renderer = new THREE.WebGLRenderer({
+    canvas:canvas,
+    antialias:true,
+    alpha:true
+});
+
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+
+const scene = new THREE.Scene();
+
+scene.background = new THREE.Color("#eeeaff");
+
+const camera = new THREE.PerspectiveCamera(45,1,0.1,100);
+
+camera.position.set(5,4,7);
+
+scene.add(
+    new THREE.HemisphereLight(0xffffff,0x777799,2)
+);
+
+const light = new THREE.DirectionalLight(0xffffff,2.5);
+
+light.position.set(5,8,6);
+
+scene.add(light);
+
+const fill = new THREE.DirectionalLight(0xb6aaff,1.2);
+
+fill.position.set(-5,3,-4);
+
+scene.add(fill);
+
+
+// ==========================================
+// 8. CAMERA CONTROLS
+// ==========================================
+
+const controls = new THREE.OrbitControls(
+    camera,
+    renderer.domElement
+);
+
+controls.enableDamping = true;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 1.8;
+controls.minDistance = 3;
+controls.maxDistance = 13;
+
+
+// ==========================================
+// 9. MACHINE MODEL MATERIALS
+// ==========================================
+
+const machineGroup = new THREE.Group();
+
+scene.add(machineGroup);
+
+const mat = (color,metalness=.55,roughness=.35) =>
+    new THREE.MeshStandardMaterial({
+        color,
+        metalness,
+        roughness
+    });
+
+const blue = mat("#5141bd");
+const purple = mat("#7967ed");
+const steel = mat("#9ba6bd",.8,.25);
+const dark = mat("#343650");
+const gold = mat("#c5a47e");
+const green = mat("#4d9c88");
+
+
+// ==========================================
+// 10. 3D SHAPE FUNCTIONS
+// ==========================================
+
+function box(w,h,d,material,x=0,y=0,z=0,group=machineGroup) {
+
+    const mesh = new THREE.Mesh(
+        new THREE.BoxGeometry(w,h,d),
+        material
+    );
+
+    mesh.position.set(x,y,z);
+
+    group.add(mesh);
+
+    return mesh;
+
+}
+
+
+function cylinder(r1,r2,length,material,x,y,z,rotation=0,group=machineGroup) {
+
+    const mesh = new THREE.Mesh(
+        new THREE.CylinderGeometry(r1,r2,length,32),
+        material
+    );
+
+    mesh.position.set(x,y,z);
+
+    mesh.rotation.z = rotation;
+
+    group.add(mesh);
+
+    return mesh;
+
+}
+
+
+function sphere(radius,material,x,y,z) {
+
+    const mesh = new THREE.Mesh(
+        new THREE.SphereGeometry(radius,24,16),
+        material
+    );
+
+    mesh.position.set(x,y,z);
+
+    machineGroup.add(mesh);
+
+    return mesh;
+
+}
+
+
+// ==========================================
+// 11. COMMON MACHINE BASE
+// ==========================================
+
+function addBase() {
+
+    box(3.8,.22,2.1,dark,0,-1.2,0);
+
+    for(let x of [-1.4,1.4]) {
+
+        box(.35,.35,1.8,steel,x,-.95,0);
+
+    }
+
+}
+
+
+// ==========================================
+// 12. ELECTRIC MOTOR MODEL
+// ==========================================
+
+function addElectricMotor() {
+
+    addBase();
+
+    cylinder(.95,.95,2.2,blue,0,0,0,Math.PI/2);
+
+    cylinder(1.01,1.01,.18,steel,-1.18,0,0,Math.PI/2);
+
+    cylinder(1.01,1.01,.18,steel,1.18,0,0,Math.PI/2);
+
+    cylinder(.18,.18,1.1,gold,1.6,0,0,Math.PI/2);
+
+    box(.8,.35,.75,purple,-.15,1.05,0);
+
+    for(let i=-4;i<=4;i++) {
+
+        const fin = box(.07,1.65,2.15,steel,i*.19,0,0);
+
+        fin.rotation.x = 0;
+
+    }
+
+    cylinder(.36,.36,.3,dark,-1.35,0,0,Math.PI/2);
+
+}
+
+
+// ==========================================
+// 13. CENTRIFUGAL PUMP MODEL
+// ==========================================
+
+function addPump() {
+
+    addBase();
+
+    cylinder(.8,.8,.35,blue,-.6,0,0,Math.PI/2);
+
+    const casing = new THREE.Mesh(
+        new THREE.SphereGeometry(1,32,24),
+        purple
+    );
+
+    casing.scale.set(.65,1.05,1.05);
+
+    casing.position.set(-.4,0,0);
+
+    machineGroup.add(casing);
+
+    cylinder(.35,.35,1.4,steel,.8,0,0,Math.PI/2);
+
+    cylinder(.9,.9,.25,blue,1.45,0,0,Math.PI/2);
+
+    cylinder(.45,.45,.9,steel,-.4,1.1,0,0);
+
+    box(.8,.3,.6,dark,.7,-.9,0);
+
+    cylinder(.25,.25,.8,gold,1.6,.0,0,Math.PI/2);
+
+}
+
+
+// ==========================================
+// 14. GEARBOX MODEL
+// ==========================================
+
+function addGearbox() {
+
+    addBase();
+
+    box(2.5,1.8,1.7,blue,0,0,0);
+
+    box(2.25,.12,1.5,steel,0,.96,0);
+
+    for(let x of [-.65,.65]) {
+
+        cylinder(.55,.55,.35,gold,x,0,0,Math.PI/2);
+
+        cylinder(.22,.22,2.8,steel,x,0,0,Math.PI/2);
+
+        cylinder(.18,.18,.25,dark,x,0,.95,Math.PI/2);
+
+    }
+
+    cylinder(.18,.18,1.1,gold,0,.35,0,0);
+
+    box(.35,.35,2.0,purple,0,1.15,0);
+
+}
+
+
+// ==========================================
+// 15. AIR COMPRESSOR MODEL
+// ==========================================
+
+function addCompressor() {
+
+    addBase();
+
+    cylinder(.8,.8,1.9,blue,-.5,.15,0,Math.PI/2);
+
+    cylinder(.85,.85,.15,steel,.5,.15,0,Math.PI/2);
+
+    cylinder(.72,.72,2.1,steel,1.25,-.3,0,0);
+
+    cylinder(.72,.72,.16,dark,1.25,.8,0,0);
+
+    box(.55,.4,.55,purple,-.4,1.2,0);
+
+    cylinder(.1,.1,1.2,gold,-.5,1.4,0,0);
+
+    box(3.4,.15,1.8,dark,0,-1.2,0);
+
+}
+
+
+// ==========================================
+// 16. CONVEYOR SYSTEM MODEL
+// ==========================================
+
+function addConveyor() {
+
+    addBase();
+
+    const belt = box(3.6,.18,1.2,dark,0,.35,0);
+
+    box(3.8,.12,1.4,steel,0,.25,0);
+
+    for(let x of [-1.65,1.65]) {
+
+        cylinder(.4,.4,1.35,steel,x,.35,0,Math.PI/2);
+
+        cylinder(.12,.12,.5,gold,x,.35,0,Math.PI/2);
+
+    }
+
+    for(let x=-1.2;x<=1.2;x+=.6) {
+
+        cylinder(.1,.1,1.4,steel,x,-.2,0,Math.PI/2);
+
+    }
+
+    box(.6,.6,.7,purple,-1.4,-.45,.0);
+
+    box(.35,.25,.5,gold,-1.4,-.85,0);
+
+}
+
+
+// ==========================================
+// 17. HYDRAULIC PRESS MODEL
+// ==========================================
+
+function addHydraulicPress() {
+
+    addBase();
+
+    for(let x of [-1.4,1.4]) {
+
+        box(.28,3.1,.4,blue,x,.35,0);
+
+    }
+
+    box(3.1,.3,.8,steel,0,1.9,0);
+
+    box(2.5,.28,1.5,dark,0,-.1,0);
+
+    cylinder(.42,.42,1.5,gold,0,1.05,0,0);
+
+    cylinder(.28,.28,.7,steel,0,.0,0,0);
+
+    box(1.2,.4,1.1,purple,0,-.45,0);
+
+    box(2.1,.3,.8,steel,0,-.9,0);
+
+    box(.7,.65,.6,blue,1.8,-.75,.0);
+
+}
+
+
+// ==========================================
+// 18. SELECT THE CORRECT 3D MODEL
+// ==========================================
+
+const builders = {
+
+    "MCH-001":addElectricMotor,
+
+    "MCH-002":addPump,
+
+    "MCH-003":addGearbox,
+
+    "MCH-004":addCompressor,
+
+    "MCH-005":addConveyor,
+
+    "MCH-006":addHydraulicPress
+
+};
+
+builders[machineId]();
+
+machineGroup.rotation.y = .3;
+
+
+// ==========================================
+// 19. RESPONSIVE 3D CANVAS
+// ==========================================
+
+function resizeRenderer() {
+
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+
+    if (!width || !height) {
+        return;
+    }
+
+    renderer.setSize(width,height,false);
+
+    camera.aspect = width / height;
+
+    camera.updateProjectionMatrix();
+
+}
+
+window.addEventListener("resize",resizeRenderer);
+
+resizeRenderer();
+
+
+// ==========================================
+// 20. ANIMATION LOOP
+// ==========================================
+
+function animate() {
+
+    requestAnimationFrame(animate);
+
+    controls.update();
+
+    renderer.render(scene,camera);
+
+}
+
+animate();
+
+</script>
+
+</body>
+</html>
